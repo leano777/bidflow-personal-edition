@@ -6,7 +6,7 @@ import { Label } from './ui/label';
 import { Progress } from './ui/progress';
 import { Badge } from './ui/badge';
 import { ArrowLeft, Sparkles, Wand2, FileText, User, MapPin, Calculator, Clock, AlertCircle } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { Toaster } from './ui/sonner';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
 

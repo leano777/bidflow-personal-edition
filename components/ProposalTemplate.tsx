@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { CalendarDays, Phone, Mail, MapPin, Calculator, FileText, Printer, Plus, Trash2, MoreVertical, Settings, Edit3, Save, Eye, EyeOff, Download, Upload, List, RefreshCw, ArrowLeft, TrendingUp, TrendingDown, Minus, X, Percent, LayoutList, DollarSign } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { Toaster } from './ui/sonner';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
 import { VoiceInput } from './VoiceInput';
@@ -76,6 +76,11 @@ interface ProposalData {
   warranty: string;
   timeline: string;
   additionalTerms: string;
+  
+  // Version control
+  version?: string;
+  baseProposalId?: string;
+  previousTotal?: number;
 }
 
 interface ProposalTemplateProps {

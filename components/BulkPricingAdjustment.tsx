@@ -10,7 +10,7 @@ import { Checkbox } from './ui/checkbox';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Percent, Calculator, TrendingUp, DollarSign, ArrowRight, X, Trash2, AlertTriangle, CheckSquare, Square, Filter, RotateCcw, Layers } from 'lucide-react';
 import { LineItemScopeView } from './LineItemScopeView';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface ScopeItem {
   id: string;

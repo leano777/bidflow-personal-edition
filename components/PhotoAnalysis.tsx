@@ -5,7 +5,7 @@ import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Camera, Upload, X, Check, Eye, Zap, AlertTriangle, Ruler } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
 
 interface AnalysisResult {

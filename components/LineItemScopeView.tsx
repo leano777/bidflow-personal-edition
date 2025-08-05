@@ -28,7 +28,7 @@ import {
   MoreVertical,
   RefreshCw
 } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface ScopeItem {
   id: string;
@@ -42,6 +42,7 @@ interface ScopeItem {
   category?: string;
   isHidden?: boolean;
   scopeGroup?: string; // Simple grouping - e.g., "Retaining Wall", "Fire Pit", etc.
+  isParentScope?: boolean; // Legacy property, to be phased out
 }
 
 interface ScopeCategory {
@@ -308,6 +309,7 @@ export function LineItemScopeView({ scopeOfWork, onScopeUpdate }: LineItemScopeV
         [newCategoryName.trim()]: {
           name: newCategoryName.trim(),
           items: [],
+          scopeGroups: [],
           isVisible: true,
           isExpanded: true,
           total: 0

@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Plus, FileText, Trash2, RefreshCw, Building, User, MapPin, Calendar, GitBranch, TrendingUp, Search, Filter, Settings, Users } from 'lucide-react';
 import { Input } from './ui/input';
 import { CRMIntegrations } from './CRMIntegrations';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { Toaster } from './ui/sonner';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
 
@@ -29,9 +29,10 @@ interface HomePageProps {
   onEditProposal: (proposal: any) => void;
   onNewVersion: (baseProposal: any) => void;
   onCreateManual?: () => void;
+  onFieldCapture?: () => void;
 }
 
-export function HomePage({ onNewProposal, onEditProposal, onNewVersion, onCreateManual }: HomePageProps) {
+export function HomePage({ onNewProposal, onEditProposal, onNewVersion, onCreateManual, onFieldCapture }: HomePageProps) {
   const [savedProposals, setSavedProposals] = useState<SavedProposal[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -272,6 +273,16 @@ export function HomePage({ onNewProposal, onEditProposal, onNewVersion, onCreate
             </div>
           </div>
           
+          {onFieldCapture && (
+            <Button
+              onClick={onFieldCapture}
+              className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 shadow-lg hover:shadow-xl transition-all duration-200 text-white mb-4"
+              size="lg"
+            >
+              <MapPin className="w-5 h-5 mr-2" />
+              Field Measurement
+            </Button>
+          )}
           {/* Search Bar */}
           <div className="relative max-w-md">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />

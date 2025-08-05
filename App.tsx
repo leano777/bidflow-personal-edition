@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { HomePage } from './components/HomePage';
 import { ProposalTemplate } from './components/ProposalTemplate';
 import { AIProposalCreator } from './components/AIProposalCreator';
+import MeasurementCapture from './components/measurement/MeasurementCapture';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'ai-creator' | 'proposal'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'ai-creator' | 'proposal' | 'field-capture'>('home');
   const [currentProposal, setCurrentProposal] = useState<any>(null);
   const [isNewVersion, setIsNewVersion] = useState(false);
   const [baseProposal, setBaseProposal] = useState<any>(null);
+  const [fieldData, setFieldData] = useState<any>(null);
 
   const handleNewProposal = () => {
     setCurrentProposal(null);
@@ -115,6 +117,14 @@ export default function App() {
     setCurrentView('home');
   };
 
+  const handleFieldCapture = () => {
+    setCurrentView('field-capture');
+  };
+
+  const handleBackFromFieldCapture = () => {
+    setCurrentView('home');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {currentView === 'home' ? (
@@ -123,11 +133,20 @@ export default function App() {
           onEditProposal={handleEditProposal}
           onNewVersion={handleNewVersion}
           onCreateManual={handleCreateManual}
+          onFieldCapture={handleFieldCapture}
         />
       ) : currentView === 'ai-creator' ? (
         <AIProposalCreator 
           onProposalGenerated={handleAIProposalGenerated}
           onBackToHome={handleBackToHomeFromAI}
+        />
+      ) : currentView === 'field-capture' ? (
+        <MeasurementCapture
+          onBack={handleBackFromFieldCapture}
+          onDataCollected={(data) => {
+            setFieldData(data);
+            setCurrentView('home');
+          }}
         />
       ) : (
         <ProposalTemplate 

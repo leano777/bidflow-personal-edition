@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Mic, MicOff, Volume2 } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface VoiceInputProps {
   onTranscript: (text: string) => void;
@@ -14,7 +14,7 @@ export function VoiceInput({ onTranscript, placeholder = "Click to start voice i
   const [isListening, setIsListening] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
   const [transcript, setTranscript] = useState('');
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
     // Check if speech recognition is supported
@@ -34,7 +34,7 @@ export function VoiceInput({ onTranscript, placeholder = "Click to start voice i
         toast.success('Voice input started - speak now');
       };
 
-      recognition.onresult = (event) => {
+      recognition.onresult = (event: any) => {
         let finalTranscript = '';
         let interimTranscript = '';
 
@@ -53,7 +53,7 @@ export function VoiceInput({ onTranscript, placeholder = "Click to start voice i
         }
       };
 
-      recognition.onerror = (event) => {
+      recognition.onerror = (event: any) => {
         console.error('Speech recognition error:', event.error);
         setIsListening(false);
         
@@ -146,7 +146,7 @@ export function VoiceInput({ onTranscript, placeholder = "Click to start voice i
 // Extend Window interface for TypeScript
 declare global {
   interface Window {
-    SpeechRecognition: typeof SpeechRecognition;
-    webkitSpeechRecognition: typeof SpeechRecognition;
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
   }
 }
