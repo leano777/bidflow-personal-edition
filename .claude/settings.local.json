@@ -6,7 +6,10 @@
       "Bash(npm run type-check:*)",
       "Bash(npm run build:*)",
       "Bash(npm run lint)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(gh issue close:*)",
+      "Bash(gh issue list:*)"
     ],
     "deny": []
   }
