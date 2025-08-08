@@ -783,4 +783,6 @@ app.post('/make-server-e0c14ace/export/email', async (c) => {
   }
 });
 
-Deno.serve(app.fetch);
+export default {
+  fetch: app.fetch.bind(app)
+};
