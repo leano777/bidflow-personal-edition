@@ -1,0 +1,2280 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 14px;
+  
+  /* Enhanced color system with contractor branding */
+  --background: #fafbfc;
+  --foreground: #1a1d23;
+  --card: #ffffff;
+  --card-foreground: #1a1d23;
+  --popover: #ffffff;
+  --popover-foreground: #1a1d23;
+  
+  /* Professional contractor color palette */
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  
+  /* Secondary colors for construction industry */
+  --secondary: #f1f5f9;
+  --secondary-foreground: #1a1d23;
+  --accent: #f59e0b;
+  --accent-foreground: #ffffff;
+  --accent-50: #fffbeb;
+  --accent-100: #fef3c7;
+  --accent-500: #f59e0b;
+  --accent-600: #d97706;
+  
+  /* Semantic colors */
+  --success: #10b981;
+  --success-foreground: #ffffff;
+  --success-50: #ecfdf5;
+  --warning: #f59e0b;
+  --warning-foreground: #ffffff;
+  --warning-50: #fffbeb;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --destructive-50: #fef2f2;
+  
+  /* Neutral grays */
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --input: #ffffff;
+  --input-background: #f8fafc;
+  --ring: #2563eb;
+  
+  /* Enhanced shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+  /* Typography weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  
+  /* Radius system */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  
+  /* Enhanced spacing system for better consistency */
+  --spacing-xs: 0.25rem;    /* 4px */
+  --spacing-sm: 0.5rem;     /* 8px */
+  --spacing-md: 0.75rem;    /* 12px */
+  --spacing-lg: 1rem;       /* 16px */
+  --spacing-xl: 1.5rem;     /* 24px */
+  --spacing-2xl: 2rem;      /* 32px */
+  --spacing-3xl: 3rem;      /* 48px */
+  --spacing-4xl: 4rem;      /* 64px */
+  --spacing-5xl: 6rem;      /* 96px */
+  --spacing-6xl: 8rem;      /* 128px */
+  
+  /* Container system */
+  --container-xs: 20rem;    /* 320px */
+  --container-sm: 24rem;    /* 384px */
+  --container-md: 28rem;    /* 448px */
+  --container-lg: 32rem;    /* 512px */
+  --container-xl: 36rem;    /* 576px */
+  --container-2xl: 42rem;   /* 672px */
+  --container-3xl: 48rem;   /* 768px */
+  --container-4xl: 56rem;   /* 896px */
+  --container-5xl: 64rem;   /* 1024px */
+  --container-6xl: 72rem;   /* 1152px */
+  --container-7xl: 80rem;   /* 1280px */
+  --container-8xl: 90rem;   /* 1440px */
+  
+  /* Animation */
+  --transition-fast: 150ms ease-out;
+  --transition-medium: 250ms ease-out;
+  --transition-slow: 350ms ease-out;
+}
+
+/* THEME: Simple UI (Default) */
+.theme-simple {
+  --background: #ffffff;
+  --foreground: #1a1d23;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --muted: #f8fafc;
+  --primary: #2563eb;
+  --dashboard-bg: #f8fafc;
+  --sidebar-bg: #ffffff;
+  --glass-bg: transparent;
+  --glass-border: #e2e8f0;
+  --glass-blur: none;
+}
+
+/* THEME: Light Glassmorphic */
+.theme-light-glass {
+  --background: #f0f9ff;
+  --foreground: #1e293b;
+  --card: rgba(255, 255, 255, 0.7);
+  --border: rgba(148, 163, 184, 0.3);
+  --muted: rgba(248, 250, 252, 0.8);
+  --primary: #0ea5e9;
+  --dashboard-bg: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #fef3c7 100%);
+  --sidebar-bg: rgba(255, 255, 255, 0.8);
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-blur: blur(12px);
+}
+
+/* THEME: Dark Glassmorphic - ENHANCED */
+.theme-dark-glass {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --card: rgba(30, 41, 59, 0.8);
+  --card-foreground: #f1f5f9;
+  --border: rgba(148, 163, 184, 0.3);
+  --muted: rgba(30, 41, 59, 0.9);
+  --muted-foreground: #94a3b8;
+  --primary: #60a5fa;
+  --primary-foreground: #0f172a;
+  --secondary: rgba(51, 65, 85, 0.8);
+  --secondary-foreground: #f1f5f9;
+  --accent: #fbbf24;
+  --accent-foreground: #0f172a;
+  --success: #34d399;
+  --success-foreground: #0f172a;
+  --destructive: #f87171;
+  --destructive-foreground: #0f172a;
+  --input: rgba(30, 41, 59, 0.8);
+  --input-background: rgba(30, 41, 59, 0.6);
+  --dashboard-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
+  --sidebar-bg: rgba(30, 41, 59, 0.8);
+  --glass-bg: rgba(30, 41, 59, 0.4);
+  --glass-border: rgba(148, 163, 184, 0.2);
+  --glass-blur: blur(16px);
+}
+
+/* THEME: Tactical Black & White - COMPLETELY REVISED */
+.theme-tactical {
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #000000;
+  --card-foreground: #ffffff;
+  --popover: #000000;
+  --popover-foreground: #ffffff;
+  --border: #333333;
+  --muted: #111111;
+  --muted-foreground: #cccccc;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --primary-50: #000000;
+  --primary-100: #111111;
+  --secondary: #222222;
+  --secondary-foreground: #ffffff;
+  --accent: #ffffff;
+  --accent-foreground: #000000;
+  --success: #ffffff;
+  --success-foreground: #000000;
+  --success-50: #000000;
+  --warning: #ffffff;
+  --warning-foreground: #000000;
+  --warning-50: #000000;
+  --destructive: #ffffff;
+  --destructive-foreground: #000000;
+  --destructive-50: #000000;
+  --input: #000000;
+  --input-background: #111111;
+  --ring: #ffffff;
+  --dashboard-bg: #000000;
+  --sidebar-bg: #000000;
+  --glass-bg: #000000;
+  --glass-border: #333333;
+  --glass-blur: none;
+}
+
+/* THEME: Stealth Mode - Ultra-low visibility dark theme */
+.theme-stealth {
+  --background: #0a0a0a;
+  --foreground: #a1a1aa;
+  --card: #111111;
+  --card-foreground: #a1a1aa;
+  --popover: #1a1a1a;
+  --popover-foreground: #a1a1aa;
+  --border: #262626;
+  --muted: #171717;
+  --muted-foreground: #737373;
+  --primary: #525252;
+  --primary-foreground: #f4f4f5;
+  --primary-50: #0a0a0a;
+  --primary-100: #171717;
+  --secondary: #1f1f1f;
+  --secondary-foreground: #a1a1aa;
+  --accent: #404040;
+  --accent-foreground: #e4e4e7;
+  --success: #22c55e;
+  --success-foreground: #0a0a0a;
+  --success-50: #0f1419;
+  --warning: #eab308;
+  --warning-foreground: #0a0a0a;
+  --warning-50: #1a1a0a;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --destructive-50: #1a0f0f;
+  --input: #1a1a1a;
+  --input-background: #0f0f0f;
+  --ring: #404040;
+  --dashboard-bg: radial-gradient(ellipse at center, #111111 0%, #0a0a0a 70%);
+  --sidebar-bg: #0f0f0f;
+  --glass-bg: rgba(23, 23, 23, 0.6);
+  --glass-border: rgba(64, 64, 64, 0.3);
+  --glass-blur: blur(8px);
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --card: #1e293b;
+  --card-foreground: #f1f5f9;
+  --popover: #1e293b;
+  --popover-foreground: #f1f5f9;
+  --primary: #3b82f6;
+  --primary-foreground: #f1f5f9;
+  --secondary: #334155;
+  --secondary-foreground: #f1f5f9;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #f59e0b;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --destructive-foreground: #f1f5f9;
+  --border: #334155;
+  --input: #1e293b;
+  --ring: #3b82f6;
+}
+
+@theme inline {
+  /* Color mappings */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-50: var(--accent-50);
+  --color-accent-100: var(--accent-100);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-50: var(--success-50);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-50: var(--warning-50);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-50: var(--destructive-50);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-ring: var(--ring);
+  
+  /* Shadow mappings */
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  
+  /* Radius mappings */
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    line-height: 1.5;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Focus styles */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+/* Theme-specific dashboard backgrounds */
+.dashboard-bg {
+  background: var(--dashboard-bg);
+}
+
+.sidebar-bg {
+  background: var(--sidebar-bg);
+}
+
+/* Glass effect utility classes */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.glass-subtle {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* Modern dashboard components */
+.modern-sidebar {
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  backdrop-filter: var(--glass-blur);
+}
+
+.modern-panel {
+  @apply rounded-xl border shadow-sm;
+  background: var(--card);
+  border-color: var(--border);
+}
+
+.modern-header {
+  @apply border-b;
+  background: var(--card);
+  border-color: var(--border);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* ===========================================
+   COMPREHENSIVE THEME TEXT VISIBILITY FIXES
+   =========================================== */
+
+/* TACTICAL THEME - Complete text visibility overrides with MAXIMUM SPECIFICITY */
+.theme-tactical,
+.theme-tactical * {
+  color: #ffffff !important;
+  background-color: #000000 !important;
+}
+
+.theme-tactical *,
+.theme-tactical h1,
+.theme-tactical h2,
+.theme-tactical h3,
+.theme-tactical h4,
+.theme-tactical h5,
+.theme-tactical h6,
+.theme-tactical p,
+.theme-tactical span,
+.theme-tactical div,
+.theme-tactical label,
+.theme-tactical li,
+.theme-tactical td,
+.theme-tactical th,
+.theme-tactical section,
+.theme-tactical article,
+.theme-tactical aside,
+.theme-tactical nav,
+.theme-tactical header,
+.theme-tactical footer,
+.theme-tactical main {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.theme-tactical .text-muted-foreground,
+.theme-tactical .text-muted,
+.theme-tactical .text-gray-500,
+.theme-tactical .text-gray-600,
+.theme-tactical .text-slate-500,
+.theme-tactical .text-slate-600 {
+  color: #cccccc !important;
+}
+
+.theme-tactical .text-xs,
+.theme-tactical .text-sm,
+.theme-tactical .text-base,
+.theme-tactical .text-lg,
+.theme-tactical .text-xl {
+  color: #ffffff !important;
+}
+
+.theme-tactical .text-success,
+.theme-tactical .text-green-600,
+.theme-tactical .text-emerald-600 {
+  color: #ffffff !important;
+}
+
+.theme-tactical .text-destructive,
+.theme-tactical .text-red-600,
+.theme-tactical .text-red-500 {
+  color: #ffffff !important;
+}
+
+.theme-tactical .text-warning,
+.theme-tactical .text-yellow-600,
+.theme-tactical .text-amber-600 {
+  color: #ffffff !important;
+}
+
+.theme-tactical .text-primary,
+.theme-tactical .text-blue-600,
+.theme-tactical .text-blue-500 {
+  color: #ffffff !important;
+}
+
+.theme-tactical .contractor-text-display,
+.theme-tactical .contractor-text-label,
+.theme-tactical .contractor-text-value,
+.theme-tactical .contractor-text-currency,
+.theme-tactical .contractor-section-header {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.theme-tactical .contractor-text-currency {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+}
+
+/* TACTICAL THEME - COMPREHENSIVE BUTTON FIXES */
+.theme-tactical button,
+.theme-tactical button *,
+.theme-tactical .btn,
+.theme-tactical .btn *,
+.theme-tactical [role="button"],
+.theme-tactical [role="button"] *,
+.theme-tactical input[type="button"],
+.theme-tactical input[type="submit"],
+.theme-tactical input[type="reset"] {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  font-weight: 700 !important;
+  transition: all 0.2s ease !important;
+}
+
+.theme-tactical button:hover,
+.theme-tactical button:hover *,
+.theme-tactical .btn:hover,
+.theme-tactical .btn:hover *,
+.theme-tactical [role="button"]:hover,
+.theme-tactical [role="button"]:hover *,
+.theme-tactical input[type="button"]:hover,
+.theme-tactical input[type="submit"]:hover,
+.theme-tactical input[type="reset"]:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+}
+
+.theme-tactical button:focus,
+.theme-tactical button:focus *,
+.theme-tactical .btn:focus,
+.theme-tactical .btn:focus *,
+.theme-tactical [role="button"]:focus,
+.theme-tactical [role="button"]:focus * {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5) !important;
+  outline: none !important;
+}
+
+.theme-tactical button:active,
+.theme-tactical button:active *,
+.theme-tactical button[data-state="active"],
+.theme-tactical button[data-state="active"] *,
+.theme-tactical button[aria-pressed="true"],
+.theme-tactical button[aria-pressed="true"] *,
+.theme-tactical .btn:active,
+.theme-tactical .btn:active *,
+.theme-tactical [role="button"]:active,
+.theme-tactical [role="button"]:active * {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* TACTICAL THEME - SPECIFIC BUTTON VARIANT OVERRIDES */
+.theme-tactical .contractor-button-primary,
+.theme-tactical .contractor-button-primary * {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+.theme-tactical .contractor-button-primary:hover,
+.theme-tactical .contractor-button-primary:hover * {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+.theme-tactical .contractor-button-secondary,
+.theme-tactical .contractor-button-secondary * {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+.theme-tactical .contractor-button-secondary:hover,
+.theme-tactical .contractor-button-secondary:hover * {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+/* TACTICAL THEME - BUTTON VARIANT SPECIFICITY OVERRIDES */
+.theme-tactical button[variant="outline"],
+.theme-tactical button[variant="outline"] *,
+.theme-tactical .btn-outline,
+.theme-tactical .btn-outline * {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+.theme-tactical button[variant="outline"]:hover,
+.theme-tactical button[variant="outline"]:hover *,
+.theme-tactical .btn-outline:hover,
+.theme-tactical .btn-outline:hover * {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+.theme-tactical button[variant="ghost"],
+.theme-tactical button[variant="ghost"] *,
+.theme-tactical .btn-ghost,
+.theme-tactical .btn-ghost * {
+  background: transparent !important;
+  color: #ffffff !important;
+  border: 2px solid transparent !important;
+}
+
+.theme-tactical button[variant="ghost"]:hover,
+.theme-tactical button[variant="ghost"]:hover *,
+.theme-tactical .btn-ghost:hover,
+.theme-tactical .btn-ghost:hover * {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+}
+
+.theme-tactical button[variant="secondary"],
+.theme-tactical button[variant="secondary"] *,
+.theme-tactical .btn-secondary,
+.theme-tactical .btn-secondary * {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #333333 !important;
+}
+
+.theme-tactical button[variant="secondary"]:hover,
+.theme-tactical button[variant="secondary"]:hover *,
+.theme-tactical .btn-secondary:hover,
+.theme-tactical .btn-secondary:hover * {
+  background: #333333 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+/* TACTICAL THEME - TAB AND NAVIGATION OVERRIDES */
+.theme-tactical [role="tab"],
+.theme-tactical [role="tab"] *,
+.theme-tactical .tab,
+.theme-tactical .tab * {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #333333 !important;
+}
+
+.theme-tactical [role="tab"][data-state="active"],
+.theme-tactical [role="tab"][data-state="active"] *,
+.theme-tactical [role="tab"][aria-selected="true"],
+.theme-tactical [role="tab"][aria-selected="true"] *,
+.theme-tactical .tab.active,
+.theme-tactical .tab.active * {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #ffffff !important;
+}
+
+.theme-tactical [role="tab"]:hover,
+.theme-tactical [role="tab"]:hover *,
+.theme-tactical .tab:hover,
+.theme-tactical .tab:hover * {
+  background: #333333 !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+/* Tactical theme placeholder text */
+.theme-tactical input::placeholder,
+.theme-tactical textarea::placeholder {
+  color: #888888 !important;
+  opacity: 1 !important;
+}
+
+/* Tactical theme specific overrides for common classes */
+.theme-tactical .opacity-50 {
+  opacity: 0.7 !important;
+}
+
+.theme-tactical .opacity-60 {
+  opacity: 0.8 !important;
+}
+
+.theme-tactical .opacity-70 {
+  opacity: 0.9 !important;
+}
+
+/* Tactical theme link colors */
+.theme-tactical a,
+.theme-tactical a *,
+.theme-tactical button[variant="link"],
+.theme-tactical button[variant="link"] * {
+  color: #ffffff !important;
+  text-decoration: underline;
+  background: transparent !important;
+  border: none !important;
+}
+
+.theme-tactical a:hover,
+.theme-tactical a:hover *,
+.theme-tactical button[variant="link"]:hover,
+.theme-tactical button[variant="link"]:hover * {
+  color: #cccccc !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* DARK GLASS THEME - Enhanced text visibility */
+.theme-dark-glass {
+  color: #f1f5f9 !important;
+}
+
+.theme-dark-glass *,
+.theme-dark-glass h1,
+.theme-dark-glass h2,
+.theme-dark-glass h3,
+.theme-dark-glass h4,
+.theme-dark-glass h5,
+.theme-dark-glass h6,
+.theme-dark-glass p,
+.theme-dark-glass span,
+.theme-dark-glass div,
+.theme-dark-glass label,
+.theme-dark-glass li,
+.theme-dark-glass td,
+.theme-dark-glass th {
+  color: #f1f5f9 !important;
+}
+
+.theme-dark-glass .text-muted-foreground,
+.theme-dark-glass .text-muted {
+  color: #cbd5e1 !important;
+}
+
+.theme-dark-glass .text-xs,
+.theme-dark-glass .text-sm,
+.theme-dark-glass .text-base,
+.theme-dark-glass .text-lg,
+.theme-dark-glass .text-xl {
+  color: #f1f5f9 !important;
+}
+
+.theme-dark-glass .text-success {
+  color: #34d399 !important;
+  text-shadow: 0 0 8px rgba(52, 211, 153, 0.3);
+}
+
+.theme-dark-glass .text-destructive {
+  color: #f87171 !important;
+  text-shadow: 0 0 8px rgba(248, 113, 113, 0.3);
+}
+
+.theme-dark-glass .text-warning {
+  color: #fbbf24 !important;
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.3);
+}
+
+.theme-dark-glass .text-primary {
+  color: #60a5fa !important;
+  text-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
+}
+
+.theme-dark-glass .contractor-text-display,
+.theme-dark-glass .contractor-text-label,
+.theme-dark-glass .contractor-text-value,
+.theme-dark-glass .contractor-section-header {
+  color: #f1f5f9 !important;
+}
+
+.theme-dark-glass .contractor-text-currency {
+  color: #34d399 !important;
+  text-shadow: 0 0 8px rgba(52, 211, 153, 0.3);
+}
+
+/* Dark glass theme placeholder text */
+.theme-dark-glass input::placeholder,
+.theme-dark-glass textarea::placeholder {
+  color: #94a3b8 !important;
+  opacity: 1 !important;
+}
+
+/* Dark glass theme link colors */
+.theme-dark-glass a,
+.theme-dark-glass button[variant="link"] {
+  color: #60a5fa !important;
+}
+
+.theme-dark-glass a:hover,
+.theme-dark-glass button[variant="link"]:hover {
+  color: #93c5fd !important;
+}
+
+/* LIGHT GLASS THEME - Text contrast improvements */
+.theme-light-glass {
+  color: #1e293b !important;
+}
+
+.theme-light-glass *,
+.theme-light-glass h1,
+.theme-light-glass h2,
+.theme-light-glass h3,
+.theme-light-glass h4,
+.theme-light-glass h5,
+.theme-light-glass h6,
+.theme-light-glass p,
+.theme-light-glass span,
+.theme-light-glass div,
+.theme-light-glass label,
+.theme-light-glass li,
+.theme-light-glass td,
+.theme-light-glass th {
+  color: #1e293b !important;
+}
+
+.theme-light-glass .text-muted-foreground,
+.theme-light-glass .text-muted {
+  color: #64748b !important;
+}
+
+.theme-light-glass .contractor-text-display,
+.theme-light-glass .contractor-text-label,
+.theme-light-glass .contractor-text-value,
+.theme-light-glass .contractor-section-header {
+  color: #1e293b !important;
+}
+
+.theme-light-glass .contractor-text-currency {
+  color: #059669 !important;
+}
+
+/* Light glass theme placeholder text */
+.theme-light-glass input::placeholder,
+.theme-light-glass textarea::placeholder {
+  color: #64748b !important;
+  opacity: 1 !important;
+}
+
+/* Light glass theme link colors */
+.theme-light-glass a,
+.theme-light-glass button[variant="link"] {
+  color: #0ea5e9 !important;
+}
+
+.theme-light-glass a:hover,
+.theme-light-glass button[variant="link"]:hover {
+  color: #0284c7 !important;
+}
+
+/* ENHANCED TACTICAL THEME STYLES */
+.theme-tactical .modern-panel,
+.theme-tactical .contractor-card,
+.theme-tactical .glass-card,
+.theme-tactical .glass-panel,
+.theme-tactical .glass-subtle,
+.theme-tactical .card {
+  background: #000000 !important;
+  border: 2px solid #333333 !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 8px rgba(0, 0, 0, 0.8) !important;
+  color: #ffffff !important;
+}
+
+/* Tactical theme input/form controls */
+.theme-tactical input,
+.theme-tactical input *,
+.theme-tactical textarea,
+.theme-tactical textarea *,
+.theme-tactical select,
+.theme-tactical select *,
+.theme-tactical .contractor-input,
+.theme-tactical .contractor-input * {
+  background: #000000 !important;
+  border: 2px solid #333333 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.theme-tactical input:focus,
+.theme-tactical input:focus *,
+.theme-tactical textarea:focus,
+.theme-tactical textarea:focus *,
+.theme-tactical select:focus,
+.theme-tactical select:focus *,
+.theme-tactical .contractor-input:focus,
+.theme-tactical .contractor-input:focus * {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+  outline: none !important;
+}
+
+/* Tactical theme badges and status indicators */
+.theme-tactical .badge,
+.theme-tactical .badge *,
+.theme-tactical .status-badge,
+.theme-tactical .status-badge * {
+  background: #000000 !important;
+  border: 1px solid #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* TACTICAL THEME - ENHANCED BADGE OVERRIDES */
+.theme-tactical [data-badge],
+.theme-tactical .badge-outline {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.theme-tactical .badge-primary {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #ffffff !important;
+  font-weight: 800 !important;
+}
+
+/* Additional badge variant overrides */
+.theme-tactical [data-badge="outline"],
+.theme-tactical .badge[variant="outline"] {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+.theme-tactical [data-badge="secondary"],
+.theme-tactical .badge[variant="secondary"] {
+  background: #333333 !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+.theme-tactical .status-active,
+.theme-tactical .status-active * {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+.theme-tactical .status-draft,
+.theme-tactical .status-draft * {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #333333 !important;
+}
+
+.theme-tactical .status-pending,
+.theme-tactical .status-pending * {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #666666 !important;
+}
+
+/* ENHANCED DARK GLASSMORPHIC STYLES */
+.theme-dark-glass .glass-card {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(148, 163, 184, 0.1);
+}
+
+.theme-dark-glass .glass-panel {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(148, 163, 184, 0.15);
+}
+
+.theme-dark-glass .glass-subtle {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+.theme-dark-glass .modern-panel {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark glassmorphic button styles */
+.theme-dark-glass button {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  color: #f1f5f9 !important;
+  backdrop-filter: blur(8px);
+  font-weight: 600 !important;
+}
+
+.theme-dark-glass button:hover {
+  background: rgba(51, 65, 85, 0.9) !important;
+  border-color: rgba(148, 163, 184, 0.4) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.theme-dark-glass button[data-state="active"] {
+  background: rgba(96, 165, 250, 0.9) !important;
+  color: #0f172a !important;
+  border-color: rgba(96, 165, 250, 0.8) !important;
+}
+
+/* Dark glassmorphic primary buttons */
+.theme-dark-glass button:not([variant]):not(.outline):not(.ghost):not(.secondary) {
+  background: rgba(96, 165, 250, 0.9) !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(96, 165, 250, 0.8) !important;
+}
+
+.theme-dark-glass button:not([variant]):not(.outline):not(.ghost):not(.secondary):hover {
+  background: rgba(96, 165, 250, 1) !important;
+  box-shadow: 0 8px 20px rgba(96, 165, 250, 0.3) !important;
+}
+
+/* Dark glassmorphic form controls */
+.theme-dark-glass input,
+.theme-dark-glass textarea,
+.theme-dark-glass select {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  color: #f1f5f9 !important;
+  backdrop-filter: blur(8px);
+}
+
+.theme-dark-glass input:focus,
+.theme-dark-glass textarea:focus,
+.theme-dark-glass select:focus {
+  border-color: rgba(96, 165, 250, 0.6) !important;
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
+}
+
+/* Dark glassmorphic badges */
+.theme-dark-glass .badge {
+  background: rgba(51, 65, 85, 0.8) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  color: #f1f5f9 !important;
+  backdrop-filter: blur(8px);
+}
+
+.theme-dark-glass .status-active {
+  background: rgba(52, 211, 153, 0.9) !important;
+  color: #0f172a !important;
+  border-color: rgba(52, 211, 153, 0.8) !important;
+}
+
+/* Enhanced scrollbar styles for dark themes */
+.theme-dark-glass ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-dark-glass ::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.3);
+  border-radius: 4px;
+}
+
+.theme-dark-glass ::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 4px;
+}
+
+.theme-dark-glass ::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.6);
+}
+
+.theme-tactical ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-tactical ::-webkit-scrollbar-track {
+  background: #000000;
+  border-radius: 4px;
+}
+
+.theme-tactical ::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+
+.theme-tactical ::-webkit-scrollbar-thumb:hover {
+  background: #666666;
+}
+
+/**
+ * Enhanced typography system with improved readability
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-size: 2.5rem; /* 40px */
+      font-weight: var(--font-weight-extrabold);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--foreground);
+    }
+
+    h2 {
+      font-size: 2rem; /* 32px */
+      font-weight: var(--font-weight-bold);
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      color: var(--foreground);
+    }
+
+    h3 {
+      font-size: 1.75rem; /* 28px */
+      font-weight: var(--font-weight-bold);
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: var(--foreground);
+    }
+
+    h4 {
+      font-size: 1.375rem; /* 22px */
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.4;
+      color: var(--foreground);
+    }
+
+    h5 {
+      font-size: 1.125rem; /* 18px */
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.4;
+      color: var(--foreground);
+    }
+
+    h6 {
+      font-size: 1rem; /* 16px */
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.4;
+      color: var(--foreground);
+    }
+
+    p {
+      font-size: var(--font-size);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.6;
+      color: var(--foreground);
+    }
+
+    .text-large {
+      font-size: 1.125rem; /* 18px */
+      line-height: 1.6;
+      font-weight: var(--font-weight-medium);
+    }
+
+    .text-small {
+      font-size: 0.875rem; /* 14px */
+      line-height: 1.5;
+      font-weight: var(--font-weight-medium);
+    }
+
+    .text-xs {
+      font-size: 0.75rem; /* 12px */
+      line-height: 1.4;
+      font-weight: var(--font-weight-medium);
+    }
+
+    label {
+      font-size: var(--font-size);
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.5;
+      color: var(--foreground);
+      letter-spacing: 0.01em;
+    }
+
+    button {
+      font-size: var(--font-size);
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.5;
+      transition: all var(--transition-fast);
+      letter-spacing: 0.01em;
+    }
+
+    input, textarea, select {
+      font-size: var(--font-size);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+      transition: all var(--transition-fast);
+      color: var(--foreground);
+    }
+
+    /* Enhanced input focus states */
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--ring);
+      border-color: var(--ring);
+    }
+  }
+}
+
+/* Professional contractor-focused utility classes with enhanced container system */
+@layer utilities {
+  /* Enhanced container padding system */
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16;
+  }
+  
+  .container-padding-sm {
+    @apply px-3 sm:px-4 lg:px-6;
+  }
+  
+  .container-padding-lg {
+    @apply px-6 sm:px-8 lg:px-12 xl:px-16 2xl:px-20;
+  }
+  
+  /* Enhanced section spacing */
+  .section-spacing {
+    @apply py-8 lg:py-12 xl:py-16;
+  }
+  
+  .section-spacing-sm {
+    @apply py-4 lg:py-6 xl:py-8;
+  }
+  
+  .section-spacing-lg {
+    @apply py-12 lg:py-16 xl:py-20;
+  }
+  
+  /* Container max-width utilities */
+  .container-content {
+    max-width: var(--container-7xl);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .container-narrow {
+    max-width: var(--container-4xl);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .container-wide {
+    max-width: var(--container-8xl);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Layout utilities */
+  .layout-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+  
+  .layout-stack {
+    @apply space-y-6;
+  }
+  
+  .layout-inline {
+    @apply flex flex-wrap items-center gap-4;
+  }
+  
+  .card-elevated {
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  
+  .card-hover {
+    transition: all var(--transition-medium);
+  }
+  
+  .card-hover:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-2px);
+  }
+  
+  .gradient-primary {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-500));
+  }
+  
+  .gradient-accent {
+    background: linear-gradient(135deg, var(--accent-600), var(--accent-500));
+  }
+  
+  .text-gradient-primary {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .status-indicator {
+    position: relative;
+  }
+  
+  .status-indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    border: 2px solid var(--background);
+  }
+
+  /* Professional contractor specific classes - Theme aware */
+  .contractor-card {
+    @apply bg-card border border-border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200;
+    color: var(--foreground) !important;
+  }
+
+  .contractor-input {
+    @apply bg-input border border-border rounded-md px-3 py-2 text-sm font-medium focus:ring-2 focus:ring-ring focus:border-ring transition-colors duration-200;
+    color: var(--foreground) !important;
+  }
+
+  .contractor-button-primary {
+    @apply px-4 py-2 rounded-md font-semibold text-sm transition-all duration-200 shadow-sm bg-primary text-primary-foreground hover:opacity-90 focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+
+  .contractor-button-secondary {
+    @apply px-4 py-2 rounded-md font-semibold text-sm transition-all duration-200 shadow-sm bg-secondary text-secondary-foreground hover:opacity-90 border border-border;
+  }
+
+  .contractor-text-display {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--foreground) !important;
+    letter-spacing: 0.01em;
+  }
+
+  .contractor-text-label {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--muted-foreground) !important;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .contractor-text-value {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--foreground) !important;
+  }
+
+  .contractor-text-currency {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--success) !important;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .contractor-section-header {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--foreground) !important;
+    letter-spacing: -0.01em;
+  }
+
+  /* Professional status classes for better visual feedback */
+  .status-active {
+    @apply bg-success-50 text-success border border-success/20;
+  }
+
+  .status-draft {
+    @apply bg-muted text-muted-foreground border border-border;
+  }
+
+  .status-pending {
+    @apply bg-warning-50 text-warning border border-warning/20;
+  }
+
+  .status-approved {
+    @apply bg-primary-50 text-primary border border-primary/20;
+  }
+}
+
+/* Theme-specific overrides for contractor utility classes */
+.theme-tactical .contractor-text-label {
+  color: #cccccc !important;
+}
+
+.theme-tactical .contractor-text-display,
+.theme-tactical .contractor-text-value,
+.theme-tactical .contractor-section-header {
+  color: #ffffff !important;
+}
+
+.theme-tactical .contractor-text-currency {
+  color: #ffffff !important;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+}
+
+.theme-dark-glass .contractor-text-label {
+  color: #cbd5e1 !important;
+}
+
+.theme-dark-glass .contractor-text-display,
+.theme-dark-glass .contractor-text-value,
+.theme-dark-glass .contractor-section-header {
+  color: #f1f5f9 !important;
+}
+
+.theme-dark-glass .contractor-text-currency {
+  color: #34d399 !important;
+  text-shadow: 0 0 8px rgba(52, 211, 153, 0.3);
+}
+
+/* Enhanced animation classes for professional interactions */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn var(--transition-medium) ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp var(--transition-medium) ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn var(--transition-medium) ease-out;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounceSubtle 0.6s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceSubtle {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-4px);
+  }
+  60% {
+    transform: translateY(-2px);
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+/* Enhanced print styles for professional proposals */
+@media print {
+  .print-hidden {
+    display: none !important;
+  }
+  
+  .print-visible {
+    display: block !important;
+  }
+  
+  * {
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  body {
+    background: white !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+  
+  .card-elevated {
+    box-shadow: none !important;
+    border: 1px solid #e5e5e5 !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    font-weight: bold !important;
+  }
+
+  .contractor-text-currency {
+    font-weight: bold !important;
+    color: #000 !important;
+  }
+
+  /* Ensure tables don't break across pages */
+  table {
+    page-break-inside: avoid;
+  }
+
+  tr {
+    page-break-inside: avoid;
+  }
+}
+
+/* Better spacing for contractor forms and content */
+.contractor-form-group {
+  @apply space-y-2 mb-4;
+}
+
+.contractor-form-row {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4 mb-4;
+}
+
+.contractor-form-section {
+  @apply space-y-6 mb-8;
+}
+
+/* Enhanced visual hierarchy for scope items */
+.scope-item-material {
+  @apply border-l-4 border-primary bg-primary-50/50;
+}
+
+.scope-item-labor {
+  @apply border-l-4 border-success bg-success-50/50;
+}
+
+/* Professional badge styles */
+.badge-material {
+  @apply bg-primary-50 text-primary border border-primary/20;
+}
+
+.badge-labor {
+  @apply bg-success-50 text-success border border-success/20;
+}
+
+.badge-status {
+  @apply bg-muted text-muted-foreground border border-border;
+}
+
+/* Theme-specific scope item overrides */
+.theme-tactical .scope-item-material {
+  @apply border-l-4 border-white bg-gray-900/50;
+}
+
+.theme-tactical .scope-item-labor {
+  @apply border-l-4 border-white bg-gray-800/50;
+}
+
+.theme-dark-glass .scope-item-material {
+  @apply border-l-4 border-primary bg-primary/10;
+  backdrop-filter: blur(8px);
+}
+
+.theme-dark-glass .scope-item-labor {
+  @apply border-l-4 border-success bg-success/10;
+  backdrop-filter: blur(8px);
+}
+
+/* ADDITIONAL THEME-SPECIFIC IMPROVEMENTS FOR BETTER TEXT VISIBILITY */
+
+/* Ensure error messages are visible in all themes */
+.theme-tactical .text-destructive,
+.theme-tactical .error-message,
+.theme-tactical .alert-destructive {
+  color: #ffffff !important;
+  background: #cc0000 !important;
+  border-color: #ffffff !important;
+}
+
+.theme-dark-glass .text-destructive,
+.theme-dark-glass .error-message {
+  color: #f87171 !important;
+  text-shadow: 0 0 8px rgba(248, 113, 113, 0.3);
+}
+
+/* Ensure table text is visible */
+.theme-tactical table,
+.theme-tactical th,
+.theme-tactical td {
+  color: #ffffff !important;
+  border-color: #333333 !important;
+}
+
+.theme-dark-glass table,
+.theme-dark-glass th,
+.theme-dark-glass td {
+  color: #f1f5f9 !important;
+  border-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+/* Ensure dropdown/select option visibility */
+.theme-tactical select option {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+.theme-dark-glass select option {
+  background: rgba(30, 41, 59, 0.9) !important;
+  color: #f1f5f9 !important;
+}
+
+/* TACTICAL THEME - SELECT COMPONENT FIXES */
+.theme-tactical [data-radix-select-content] {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+.theme-tactical [data-radix-select-item] {
+  background: #000000 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.theme-tactical [data-radix-select-item]:hover,
+.theme-tactical [data-radix-select-item][data-highlighted] {
+  background: #333333 !important;
+  color: #ffffff !important;
+}
+
+.theme-tactical [data-radix-select-trigger] {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+.theme-tactical [data-radix-select-trigger]:focus {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+}
+
+.theme-tactical [data-radix-select-trigger] [data-radix-select-value] {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.theme-tactical [data-radix-select-trigger] svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  stroke-width: 2 !important;
+}
+
+/* Additional Select Component overrides for tactical theme */
+.theme-tactical .select-trigger,
+.theme-tactical [role="combobox"] {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+.theme-tactical .select-content,
+.theme-tactical [role="listbox"] {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+.theme-tactical .select-item,
+.theme-tactical [role="option"] {
+  background: #000000 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.theme-tactical .select-item:hover,
+.theme-tactical .select-item[data-highlighted],
+.theme-tactical [role="option"]:hover,
+.theme-tactical [role="option"][data-highlighted] {
+  background: #333333 !important;
+  color: #ffffff !important;
+}
+
+/* Ensure list items are visible */
+.theme-tactical ul li,
+.theme-tactical ol li {
+  color: #ffffff !important;
+}
+
+.theme-dark-glass ul li,
+.theme-dark-glass ol li {
+  color: #f1f5f9 !important;
+}
+
+/* Ensure footer text is visible */
+.theme-tactical footer,
+.theme-tactical footer * {
+  color: #cccccc !important;
+}
+
+.theme-dark-glass footer,
+.theme-dark-glass footer * {
+  color: #cbd5e1 !important;
+}
+
+/* Fix modal/dialog text visibility */
+.theme-tactical .modal-content,
+.theme-tactical .dialog-content,
+.theme-tactical .modal-content *,
+.theme-tactical .dialog-content * {
+  color: #ffffff !important;
+  background: #000000 !important;
+}
+
+.theme-dark-glass .modal-content,
+.theme-dark-glass .dialog-content {
+  color: #f1f5f9 !important;
+  background: rgba(30, 41, 59, 0.95) !important;
+  backdrop-filter: blur(20px);
+}
+
+/* Fix tooltip text visibility */
+.theme-tactical .tooltip,
+.theme-tactical [role="tooltip"] {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #333333 !important;
+}
+
+.theme-dark-glass .tooltip,
+.theme-dark-glass [role="tooltip"] {
+  background: rgba(30, 41, 59, 0.95) !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  backdrop-filter: blur(12px);
+}
+
+/* TACTICAL THEME - PRICING MODEL QUICK ACCESS SPECIFIC FIXES */
+.theme-tactical .pricing-model-component {
+  background: #000000 !important;
+  border: 2px solid #333333 !important;
+}
+
+.theme-tactical .pricing-estimate-display {
+  background: #000000 !important;
+  border: 2px solid #333333 !important;
+  color: #ffffff !important;
+}
+
+.theme-tactical .pricing-estimate-display .contractor-text-currency {
+  color: #ffffff !important;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+  font-weight: 800 !important;
+}
+
+/* Tactical theme separator overrides */
+.theme-tactical .separator,
+.theme-tactical hr,
+.theme-tactical [data-orientation="horizontal"] {
+  background: #333333 !important;
+  border-color: #333333 !important;
+}
+
+/* Feature list styling for tactical theme */
+.theme-tactical .feature-list {
+  border-top: 2px solid #333333 !important;
+}
+
+.theme-tactical .feature-dot {
+  background: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+/* Input number styling improvements */
+.theme-tactical input[type="number"] {
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.theme-tactical input[type="number"]:focus {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3) !important;
+  outline: none !important;
+}
+
+.theme-tactical input[type="number"]::placeholder {
+  color: #888888 !important;
+  font-weight: 600 !important;
+}
+
+/* TACTICAL THEME - FINAL OVERRIDE FIXES FOR PROBLEMATIC SELECTORS */
+
+/* Fix any remaining white on white issues */
+.theme-tactical .bg-white,
+.theme-tactical .bg-white * {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.theme-tactical .text-white,
+.theme-tactical .text-white * {
+  color: #ffffff !important;
+}
+
+.theme-tactical .bg-black,
+.theme-tactical .bg-black * {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+.theme-tactical .text-black,
+.theme-tactical .text-black * {
+  color: #000000 !important;
+}
+
+/* ========================================
+   STEALTH MODE THEME COMPREHENSIVE STYLES
+   ======================================== */
+
+/* STEALTH THEME - Base text and background styling */
+.theme-stealth,
+.theme-stealth * {
+  color: #a1a1aa !important;
+  font-weight: 400 !important;
+}
+
+.theme-stealth h1,
+.theme-stealth h2,
+.theme-stealth h3,
+.theme-stealth h4,
+.theme-stealth h5,
+.theme-stealth h6 {
+  color: #e4e4e7 !important;
+  font-weight: 600 !important;
+}
+
+.theme-stealth .text-muted-foreground,
+.theme-stealth .text-muted {
+  color: #737373 !important;
+}
+
+.theme-stealth .text-foreground {
+  color: #a1a1aa !important;
+}
+
+/* STEALTH THEME - Semantic color overrides */
+.theme-stealth .text-success {
+  color: #22c55e !important;
+}
+
+.theme-stealth .text-destructive,
+.theme-stealth .text-red-500,
+.theme-stealth .text-red-600 {
+  color: #ef4444 !important;
+}
+
+.theme-stealth .text-warning,
+.theme-stealth .text-yellow-500,
+.theme-stealth .text-yellow-600 {
+  color: #eab308 !important;
+}
+
+.theme-stealth .text-primary {
+  color: #a1a1aa !important;
+}
+
+/* STEALTH THEME - Contractor-specific text classes */
+.theme-stealth .contractor-text-display,
+.theme-stealth .contractor-text-value,
+.theme-stealth .contractor-section-header {
+  color: #d4d4d8 !important;
+}
+
+.theme-stealth .contractor-text-label {
+  color: #737373 !important;
+  font-weight: 500 !important;
+}
+
+.theme-stealth .contractor-text-currency {
+  color: #22c55e !important;
+  font-weight: 600 !important;
+}
+
+/* STEALTH THEME - Card and panel styling */
+.theme-stealth .contractor-card,
+.theme-stealth .glass-card,
+.theme-stealth .glass-panel,
+.theme-stealth .glass-subtle,
+.theme-stealth .card,
+.theme-stealth .modern-panel {
+  background: rgba(23, 23, 23, 0.8) !important;
+  border: 1px solid #262626 !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(64, 64, 64, 0.2) !important;
+}
+
+/* STEALTH THEME - Button styling */
+.theme-stealth button,
+.theme-stealth .btn {
+  background: #1f1f1f !important;
+  color: #a1a1aa !important;
+  border: 1px solid #404040 !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+.theme-stealth button:hover,
+.theme-stealth .btn:hover {
+  background: #2a2a2a !important;
+  color: #d4d4d8 !important;
+  border-color: #525252 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+.theme-stealth button:focus,
+.theme-stealth .btn:focus {
+  border-color: #737373 !important;
+  box-shadow: 0 0 0 2px rgba(115, 115, 115, 0.2) !important;
+  outline: none !important;
+}
+
+/* STEALTH THEME - Primary button variant */
+.theme-stealth .contractor-button-primary,
+.theme-stealth button:not([variant]) {
+  background: #404040 !important;
+  color: #f4f4f5 !important;
+  border: 1px solid #525252 !important;
+}
+
+.theme-stealth .contractor-button-primary:hover,
+.theme-stealth button:not([variant]):hover {
+  background: #525252 !important;
+  color: #ffffff !important;
+  border-color: #737373 !important;
+}
+
+/* STEALTH THEME - Secondary button variant */
+.theme-stealth .contractor-button-secondary,
+.theme-stealth button[variant="outline"],
+.theme-stealth button[variant="secondary"] {
+  background: transparent !important;
+  color: #a1a1aa !important;
+  border: 1px solid #404040 !important;
+}
+
+.theme-stealth .contractor-button-secondary:hover,
+.theme-stealth button[variant="outline"]:hover,
+.theme-stealth button[variant="secondary"]:hover {
+  background: #1f1f1f !important;
+  color: #d4d4d8 !important;
+  border-color: #525252 !important;
+}
+
+/* STEALTH THEME - Ghost button variant */
+.theme-stealth button[variant="ghost"] {
+  background: transparent !important;
+  color: #a1a1aa !important;
+  border: none !important;
+}
+
+.theme-stealth button[variant="ghost"]:hover {
+  background: #1f1f1f !important;
+  color: #d4d4d8 !important;
+}
+
+/* STEALTH THEME - Input and form controls */
+.theme-stealth input,
+.theme-stealth textarea,
+.theme-stealth select,
+.theme-stealth .contractor-input {
+  background: #1a1a1a !important;
+  border: 1px solid #262626 !important;
+  color: #d4d4d8 !important;
+  font-weight: 500 !important;
+}
+
+.theme-stealth input:focus,
+.theme-stealth textarea:focus,
+.theme-stealth select:focus,
+.theme-stealth .contractor-input:focus {
+  border-color: #404040 !important;
+  box-shadow: 0 0 0 2px rgba(64, 64, 64, 0.3) !important;
+  outline: none !important;
+}
+
+.theme-stealth input::placeholder,
+.theme-stealth textarea::placeholder {
+  color: #525252 !important;
+}
+
+/* STEALTH THEME - Badge styling */
+.theme-stealth .badge,
+.theme-stealth .status-badge {
+  background: #1f1f1f !important;
+  border: 1px solid #404040 !important;
+  color: #a1a1aa !important;
+  font-weight: 500 !important;
+}
+
+.theme-stealth .badge-primary,
+.theme-stealth .status-active {
+  background: #22c55e !important;
+  color: #0a0a0a !important;
+  border-color: #22c55e !important;
+}
+
+.theme-stealth .status-draft {
+  background: #1f1f1f !important;
+  color: #737373 !important;
+  border-color: #262626 !important;
+}
+
+.theme-stealth .status-pending {
+  background: #eab308 !important;
+  color: #0a0a0a !important;
+  border-color: #eab308 !important;
+}
+
+/* STEALTH THEME - Select component styling */
+.theme-stealth [data-radix-select-content] {
+  background: #1a1a1a !important;
+  border: 1px solid #404040 !important;
+  color: #a1a1aa !important;
+  backdrop-filter: blur(12px);
+}
+
+.theme-stealth [data-radix-select-item] {
+  background: transparent !important;
+  color: #a1a1aa !important;
+}
+
+.theme-stealth [data-radix-select-item]:hover,
+.theme-stealth [data-radix-select-item][data-highlighted] {
+  background: #262626 !important;
+  color: #d4d4d8 !important;
+}
+
+.theme-stealth [data-radix-select-trigger] {
+  background: #1a1a1a !important;
+  border: 1px solid #262626 !important;
+  color: #a1a1aa !important;
+}
+
+.theme-stealth [data-radix-select-trigger]:focus {
+  border-color: #404040 !important;
+  box-shadow: 0 0 0 2px rgba(64, 64, 64, 0.3) !important;
+}
+
+.theme-stealth [data-radix-select-trigger] svg {
+  color: #737373 !important;
+  stroke: #737373 !important;
+}
+
+/* STEALTH THEME - Icon styling */
+.theme-stealth .lucide,
+.theme-stealth [data-lucide],
+.theme-stealth svg {
+  color: #737373 !important;
+  stroke: #737373 !important;
+  fill: none !important;
+}
+
+.theme-stealth button svg,
+.theme-stealth .icon-button svg {
+  color: #a1a1aa !important;
+  stroke: #a1a1aa !important;
+}
+
+.theme-stealth button:hover svg,
+.theme-stealth .icon-button:hover svg {
+  color: #d4d4d8 !important;
+  stroke: #d4d4d8 !important;
+}
+
+/* STEALTH THEME - Primary button icons */
+.theme-stealth .contractor-button-primary svg {
+  color: #f4f4f5 !important;
+  stroke: #f4f4f5 !important;
+}
+
+.theme-stealth .contractor-button-primary:hover svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* STEALTH THEME - Tab styling */
+.theme-stealth [role="tab"],
+.theme-stealth .tab {
+  background: transparent !important;
+  color: #737373 !important;
+  border: 1px solid transparent !important;
+}
+
+.theme-stealth [role="tab"][data-state="active"],
+.theme-stealth [role="tab"][aria-selected="true"],
+.theme-stealth .tab.active {
+  background: #1f1f1f !important;
+  color: #d4d4d8 !important;
+  border-color: #404040 !important;
+}
+
+.theme-stealth [role="tab"]:hover,
+.theme-stealth .tab:hover {
+  background: #171717 !important;
+  color: #a1a1aa !important;
+  border-color: #262626 !important;
+}
+
+/* STEALTH THEME - Separator styling */
+.theme-stealth .separator,
+.theme-stealth hr,
+.theme-stealth [data-orientation="horizontal"] {
+  background: #262626 !important;
+  border-color: #262626 !important;
+}
+
+/* STEALTH THEME - Link styling */
+.theme-stealth a,
+.theme-stealth button[variant="link"] {
+  color: #a1a1aa !important;
+  text-decoration: underline;
+  background: transparent !important;
+  border: none !important;
+}
+
+.theme-stealth a:hover,
+.theme-stealth button[variant="link"]:hover {
+  color: #d4d4d8 !important;
+  background: transparent !important;
+}
+
+/* STEALTH THEME - Table styling */
+.theme-stealth table,
+.theme-stealth th,
+.theme-stealth td {
+  color: #a1a1aa !important;
+  border-color: #262626 !important;
+}
+
+.theme-stealth th {
+  color: #d4d4d8 !important;
+  font-weight: 600 !important;
+}
+
+/* STEALTH THEME - Scrollbar styling */
+.theme-stealth ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-stealth ::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border-radius: 4px;
+}
+
+.theme-stealth ::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+
+.theme-stealth ::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}
+
+/* STEALTH THEME - Enhanced glass effects */
+.theme-stealth .glass-card {
+  background: rgba(23, 23, 23, 0.6) !important;
+  border: 1px solid rgba(64, 64, 64, 0.3) !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.6) !important;
+}
+
+.theme-stealth .glass-panel {
+  background: rgba(31, 31, 31, 0.7) !important;
+  border: 1px solid rgba(64, 64, 64, 0.4) !important;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7) !important;
+}
+
+.theme-stealth .glass-subtle {
+  background: rgba(23, 23, 23, 0.4) !important;
+  border: 1px solid rgba(64, 64, 64, 0.2) !important;
+  backdrop-filter: blur(6px);
+}
+
+/* STEALTH THEME - Focus and interaction states */
+.theme-stealth :focus,
+.theme-stealth :focus-visible {
+  outline: 2px solid #525252 !important;
+  outline-offset: 2px !important;
+}
+
+/* STEALTH THEME - Enhanced contrast for critical elements */
+.theme-stealth .pricing-estimate-display .contractor-text-currency {
+  color: #22c55e !important;
+  text-shadow: 0 0 4px rgba(34, 197, 94, 0.3);
+  font-weight: 700 !important;
+}
+
+/* STEALTH THEME - Error and alert styling */
+.theme-stealth .text-destructive,
+.theme-stealth .error-message,
+.theme-stealth .alert-destructive {
+  color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+/* Ensure SVG icons are visible in tactical theme */
+.theme-tactical svg,
+.theme-tactical svg * {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+  stroke-width: 2 !important;
+}
+
+/* TACTICAL THEME - ENHANCED ICON VISIBILITY */
+.theme-tactical .lucide,
+.theme-tactical [data-lucide] {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  stroke-width: 2.5 !important;
+  fill: none !important;
+}
+
+.theme-tactical .icon,
+.theme-tactical .icon-button svg,
+.theme-tactical button svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  stroke-width: 2.5 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8));
+}
+
+/* Icon button specific overrides */
+.theme-tactical button:hover svg,
+.theme-tactical .icon-button:hover svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+  stroke-width: 2.5 !important;
+}
+
+/* Primary button icon overrides */
+.theme-tactical .contractor-button-primary svg,
+.theme-tactical button[variant="primary"] svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+  stroke-width: 2.5 !important;
+}
+
+.theme-tactical .contractor-button-primary:hover svg,
+.theme-tactical button[variant="primary"]:hover svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  stroke-width: 2.5 !important;
+}
+
+/* Ensure proper contrast for all interactive elements */
+.theme-tactical :focus,
+.theme-tactical :focus-visible {
+  outline: 2px solid #ffffff !important;
+  outline-offset: 2px !important;
+}
+
+/* Ensure proper contrast for form elements */
+.theme-tactical .form-control,
+.theme-tactical .form-input,
+.theme-tactical .form-select,
+.theme-tactical .form-textarea {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #333333 !important;
+}
+
+.theme-tactical .form-control:focus,
+.theme-tactical .form-input:focus,
+.theme-tactical .form-select:focus,
+.theme-tactical .form-textarea:focus {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+}

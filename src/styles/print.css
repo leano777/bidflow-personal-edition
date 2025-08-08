@@ -1,0 +1,60 @@
+/* Print stylesheet for generating clean PDFs via the browser print dialog.
+   - Hides interactive UI elements and navigation
+   - Sets page size and margins
+   - Avoids awkward page breaks
+*/
+
+/* Utility: hide elements during print */
+.print-hidden { display: none !important; }
+
+@media print {
+  /* Page setup: choose one page size; fall back to auto */
+  @page {
+    size: Letter; /* or A4 */
+    margin: 12mm; /* balanced margins for readability */
+  }
+
+  /* Remove app chrome */
+  header, nav, footer, .sidebar, .app-chrome, .app-toolbar { display: none !important; }
+
+  /* Make background colors/images print (many browsers need user setting; still set colors) */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Ensure content uses full width */
+  body {
+    margin: 0 !important;
+    background: white !important;
+  }
+
+  /* Container adjustments */
+  .print-container, .proposal-preview, .preview-root {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Avoid breaking important blocks across pages */
+  .section, .proposal-section, .summary, .totals, .signature-block, .brand-header, .terms {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Headings and text legibility */
+  h1, h2, h3, h4 { color: #000 !important; }
+
+  /* Tables: keep headers with rows */
+  table { page-break-inside: auto; border-collapse: collapse; width: 100%; }
+  thead { display: table-header-group; }
+  tfoot { display: table-footer-group; }
+  tr, td, th { page-break-inside: avoid; break-inside: avoid; }
+
+  /* Links: remove underlines/colors for print */
+  a { color: inherit !important; text-decoration: none !important; }
+}
+
