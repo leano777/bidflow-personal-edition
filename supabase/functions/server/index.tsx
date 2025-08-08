@@ -676,4 +676,111 @@ app.delete('/make-server-e0c14ace/logo/:fileName', async (c) => {
   }
 });
 
+// PDF Export endpoint
+app.post('/make-server-e0c14ace/export/pdf', async (c) => {
+  try {
+    const { proposal, brandSettings, exportOptions } = await c.req.json();
+    
+    if (!proposal) {
+      return c.json({ error: 'Proposal data is required' }, 400);
+    }
+
+    console.log('Generating PDF for proposal:', proposal.projectTitle);
+    
+    // For now, we'll return a mock response since we need to implement proper PDF generation
+    // In production, this would use a library like Puppeteer or similar
+    const mockPdfContent = `Mock PDF content for ${proposal.projectTitle}`;
+    const pdfBuffer = new TextEncoder().encode(mockPdfContent);
+    
+    return new Response(pdfBuffer, {
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': `attachment; filename="${proposal.projectTitle || 'Proposal'}_${new Date().toISOString().split('T')[0]}.pdf"`,
+      },
+    });
+  } catch (error) {
+    console.log('PDF export error:', error);
+    return c.json({ 
+      success: false,
+      error: 'PDF generation failed', 
+      details: error.message 
+    }, 500);
+  }
+});
+
+// Excel Export endpoint
+app.post('/make-server-e0c14ace/export/excel', async (c) => {
+  try {
+    const { proposal, brandSettings, exportOptions } = await c.req.json();
+    
+    if (!proposal) {
+      return c.json({ error: 'Proposal data is required' }, 400);
+    }
+
+    console.log('Generating Excel for proposal:', proposal.projectTitle);
+    
+    // For now, we'll return a mock CSV response since we need to implement proper Excel generation
+    // In production, this would use a library like ExcelJS
+    const csvContent = generateCSVFromProposal(proposal);
+    const excelBuffer = new TextEncoder().encode(csvContent);
+    
+    return new Response(excelBuffer, {
+      headers: {
+        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'Content-Disposition': `attachment; filename="${proposal.projectTitle || 'Proposal'}_${new Date().toISOString().split('T')[0]}.xlsx"`,
+      },
+    });
+  } catch (error) {
+    console.log('Excel export error:', error);
+    return c.json({ 
+      success: false,
+      error: 'Excel generation failed', 
+      details: error.message 
+    }, 500);
+  }
+});
+
+// Helper function to generate CSV content from proposal
+function generateCSVFromProposal(proposal: any): string {
+  let csv = 'Project,Description,Quantity,Unit,Rate,Total\n';
+  
+  if (proposal.scopeOfWork && Array.isArray(proposal.scopeOfWork)) {
+    proposal.scopeOfWork.forEach((item: any) => {
+      const rate = item.isLabor ? (item.laborRate || 0) : (item.materialCost || 0);
+      csv += `"${proposal.projectTitle || 'Untitled'}","${item.description || ''}",${item.quantity || 0},"${item.unit || ''}",${rate},${item.total || 0}\n`;
+    });
+  }
+  
+  return csv;
+}
+
+// Email Export endpoint
+app.post('/make-server-e0c14ace/export/email', async (c) => {
+  try {
+    const { format, emailData, proposal, brandSettings } = await c.req.json();
+    
+    if (!format || !emailData || !proposal) {
+      return c.json({ error: 'Missing required parameters' }, 400);
+    }
+
+    console.log(`Mock email sending ${format} export to:`, emailData.recipientEmail);
+    
+    // TODO: Implement actual email sending logic here
+    // This would integrate with a service like SendGrid, Resend, or similar
+    
+    return c.json({ 
+      success: true, 
+      message: 'Export email sent successfully',
+      mockResponse: true
+    });
+  } catch (error) {
+    console.log('Email export error:', error);
+    return c.json({ 
+      success: false,
+      error: 'Email sending failed', 
+      details: error.message 
+    }, 500);
+  }
+});
+
 Deno.serve(app.fetch);

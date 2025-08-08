@@ -9,6 +9,7 @@ import { Label } from './ui/label';
 import { Building2, MapPin, Phone, Mail, Calendar, FileText, Globe, Package, Wrench, DollarSign, Settings, Eye, EyeOff, Printer, Palette, Calculator, Receipt, List } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
+import ExportManager from './ExportManager';
 
 interface ProposalPreviewProps {
   proposal: any;
@@ -256,6 +257,15 @@ export function ProposalPreview({ proposal, mode, baseProposal, brandSettings: p
 
   return (
     <div className="space-y-6">
+      {/* Export Manager */}
+      <div className="print:hidden">
+        <ExportManager 
+          proposal={proposal}
+          brandSettings={brandSettings}
+          disabled={!proposal}
+        />
+      </div>
+
       {/* Preview Controls */}
       <Card className="glass-card shadow-md print:hidden">
         <CardHeader className="pb-4">
