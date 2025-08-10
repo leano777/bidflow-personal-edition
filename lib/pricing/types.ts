@@ -28,6 +28,8 @@ export interface MaterialPricing {
   wasteFactor: number;
   supplier?: string;
   region: string;
+  zipCode?: string;
+  csiCode?: string;
   lastUpdated: Date;
 }
 
@@ -135,3 +137,131 @@ export const UNIT_MAPPINGS = {
   cubic: ['CF', 'CY', 'cu ft', 'cubic feet', 'cubic yards', 'ft³', 'yd³'],
   count: ['EA', 'each', 'pc', 'piece', 'unit']
 } as const;
+
+// Regional Cost Database Types
+export interface CSICode {
+  code: string; // e.g., "03 30 00", "09 22 00"
+  level: number; // 1=Division, 2=Section, 3=Work Results
+  title: string;
+  description: string;
+  parentCode?: string;
+}
+
+export interface BaseUnitPrice {
+  id: string;
+  csiCode: string;
+  itemDescription: string;
+  unit: string;
+  laborCost: number;
+  materialCost: number;
+  equipmentCost: number;
+  totalUnitPrice: number;
+  effectiveDate: Date;
+  lastUpdated: Date;
+}
+
+export interface ZipCodePricing {
+  zipCode: string;
+  city: string;
+  state: string;
+  county: string;
+  unitPrices: BaseUnitPrice[];
+  locationFactors: LocationFactors;
+  lastUpdated: Date;
+}
+
+export interface LocationFactors {
+  zipCode: string;
+  laborFactor: number; // Multiplier for labor costs (1.0 = national average)
+  materialFactor: number; // Multiplier for material costs
+  equipmentFactor: number; // Multiplier for equipment costs
+  totalFactor: number; // Overall cost factor
+  costIndex: number; // Regional cost index (100 = national average)
+  lastUpdated: Date;
+}
+
+export interface EscalationIndex {
+  quarter: string; // Format: "2024-Q1"
+  year: number;
+  quarterNumber: number;
+  laborEscalation: number; // Percentage change from previous quarter
+  materialEscalation: number;
+  equipmentEscalation: number;
+  overallInflation: number;
+  baseIndexValue: number; // Base 100 index
+  publishedDate: Date;
+}
+
+export interface RegionalCostDatabase {
+  csiCodes: CSICode[];
+  zipCodePricing: Map<string, ZipCodePricing>;
+  locationFactors: Map<string, LocationFactors>;
+  escalationIndices: EscalationIndex[];
+  lastSync: Date;
+  cacheExpiry: Date;
+}
+
+export interface PricingQuery {
+  csiCode: string;
+  zipCode: string;
+  quantity: number;
+  unit: string;
+  targetQuarter?: string; // For escalation, defaults to current
+  includeLocationFactors?: boolean;
+  includeEscalation?: boolean;
+}
+
+export interface PricingQueryResult {
+  query: PricingQuery;
+  basePrice: BaseUnitPrice;
+  locationAdjusted: {
+    laborCost: number;
+    materialCost: number;
+    equipmentCost: number;
+    totalCost: number;
+  };
+  escalationAdjusted: {
+    laborCost: number;
+    materialCost: number;
+    equipmentCost: number;
+    totalCost: number;
+  };
+  finalPrice: {
+    laborCost: number;
+    materialCost: number;
+    equipmentCost: number;
+    totalCost: number;
+    unitPrice: number;
+    extendedPrice: number; // unitPrice * quantity
+  };
+  appliedFactors: {
+    locationFactor: LocationFactors;
+    escalationFactor?: EscalationIndex;
+  };
+  confidence: number;
+  cacheHit: boolean;
+  queryTime: number; // milliseconds
+  calculatedAt: Date;
+}
+
+// Cache configuration
+export interface CacheConfig {
+  redis: {
+    host: string;
+    port: number;
+    password?: string;
+    db: number;
+  };
+  ttl: {
+    basePrice: number; // seconds
+    locationFactor: number;
+    escalationIndex: number;
+    queryResult: number;
+  };
+  keyPrefixes: {
+    basePrice: string;
+    locationFactor: string;
+    escalationIndex: string;
+    queryResult: string;
+  };
+}

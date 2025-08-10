@@ -1,10 +1,20 @@
-// Main Pricing Engine Export - BF-002 Implementation
+// Main Pricing Engine Export - BF-002 Implementation with Regional Cost Database
 
+// Export all types and core functionality
 export * from './types';
 export * from './engine';
 export * from './ai-integration';
 export * from './database';
 
+// Export regional cost database functionality
+export * from './regional-database';
+export * from './cache-service';
+export * from './enhanced-pricing-service';
+
+// Export composite pricing engine
+export * from './composite-pricing-engine';
+
+// Legacy imports for backward compatibility
 import { PricingEngine } from './engine';
 import { PricingAI } from './ai-integration';
 import { 
@@ -15,6 +25,11 @@ import {
   searchRules 
 } from './database';
 import { EstimateRequest, PricingCalculation, PricingDatabase } from './types';
+
+// New enhanced service imports
+import { EnhancedPricingService, enhancedPricingService } from './enhanced-pricing-service';
+import { RegionalCostDBService, regionalCostDB } from './regional-database';
+import { RegionalPricingCache, defaultCacheConfig } from './cache-service';
 
 // Main Pricing Service Class
 export class PricingService {

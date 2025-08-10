@@ -1,0 +1,186 @@
+{
+  "training_data": [
+    {
+      "text": "Install 500 linear feet of concrete footing with #4 rebar at 12 inch centers",
+      "entities": [
+        {"start": 8, "end": 11, "label": "QUANTITY", "value": "500"},
+        {"start": 12, "end": 24, "label": "UNIT", "value": "linear feet", "ontology_id": "linear_feet"},
+        {"start": 28, "end": 44, "label": "MATERIAL", "value": "concrete footing", "ontology_id": "concrete"},
+        {"start": 50, "end": 58, "label": "MATERIAL", "value": "#4 rebar", "ontology_id": "rebar"},
+        {"start": 62, "end": 79, "label": "MODIFIER", "value": "12 inch centers"}
+      ],
+      "work_type": "concrete_work",
+      "operation": "install"
+    },
+    {
+      "text": "Excavate 25 cubic yards of soil for foundation using track hoe",
+      "entities": [
+        {"start": 9, "end": 11, "label": "QUANTITY", "value": "25"},
+        {"start": 12, "end": 23, "label": "UNIT", "value": "cubic yards", "ontology_id": "cubic_yards"},
+        {"start": 27, "end": 31, "label": "MATERIAL", "value": "soil"},
+        {"start": 36, "end": 46, "label": "MODIFIER", "value": "foundation"},
+        {"start": 53, "end": 62, "label": "EQUIPMENT", "value": "track hoe", "ontology_id": "excavator"}
+      ],
+      "work_type": "excavation",
+      "operation": "excavate"
+    },
+    {
+      "text": "Frame 1200 SF of exterior walls using 2x6 lumber at 16 OC spacing",
+      "entities": [
+        {"start": 6, "end": 10, "label": "QUANTITY", "value": "1200"},
+        {"start": 11, "end": 13, "label": "UNIT", "value": "SF", "ontology_id": "square_feet"},
+        {"start": 17, "end": 31, "label": "MODIFIER", "value": "exterior walls"},
+        {"start": 38, "end": 47, "label": "MATERIAL", "value": "2x6 lumber", "ontology_id": "lumber"},
+        {"start": 51, "end": 66, "label": "MODIFIER", "value": "16 OC spacing"}
+      ],
+      "work_type": "framing",
+      "operation": "frame"
+    },
+    {
+      "text": "Pour 15 CY of concrete for slab on grade with 4000 PSI strength",
+      "entities": [
+        {"start": 5, "end": 7, "label": "QUANTITY", "value": "15"},
+        {"start": 8, "end": 10, "label": "UNIT", "value": "CY", "ontology_id": "cubic_yards"},
+        {"start": 14, "end": 22, "label": "MATERIAL", "value": "concrete", "ontology_id": "concrete"},
+        {"start": 27, "end": 41, "label": "MODIFIER", "value": "slab on grade"},
+        {"start": 47, "end": 64, "label": "MODIFIER", "value": "4000 PSI strength"}
+      ],
+      "work_type": "concrete_work",
+      "operation": "pour"
+    },
+    {
+      "text": "Install electrical conduit 200 LF of 3/4 inch EMT for branch circuits",
+      "entities": [
+        {"start": 8, "end": 26, "label": "MATERIAL", "value": "electrical conduit", "ontology_id": "conduit"},
+        {"start": 27, "end": 30, "label": "QUANTITY", "value": "200"},
+        {"start": 31, "end": 33, "label": "UNIT", "value": "LF", "ontology_id": "linear_feet"},
+        {"start": 37, "end": 50, "label": "MODIFIER", "value": "3/4 inch EMT"},
+        {"start": 55, "end": 70, "label": "MODIFIER", "value": "branch circuits"}
+      ],
+      "work_type": "electrical",
+      "operation": "install"
+    },
+    {
+      "text": "Lay 800 concrete masonry units for retaining wall with mortar joints",
+      "entities": [
+        {"start": 4, "end": 7, "label": "QUANTITY", "value": "800"},
+        {"start": 8, "end": 32, "label": "MATERIAL", "value": "concrete masonry units", "ontology_id": "concrete_masonry_unit"},
+        {"start": 37, "end": 51, "label": "MODIFIER", "value": "retaining wall"},
+        {"start": 57, "end": 69, "label": "MODIFIER", "value": "mortar joints"}
+      ],
+      "work_type": "masonry",
+      "operation": "lay"
+    },
+    {
+      "text": "Hang and finish 2400 SF of 5/8 inch drywall on interior walls",
+      "entities": [
+        {"start": 16, "end": 20, "label": "QUANTITY", "value": "2400"},
+        {"start": 21, "end": 23, "label": "UNIT", "value": "SF", "ontology_id": "square_feet"},
+        {"start": 27, "end": 44, "label": "MATERIAL", "value": "5/8 inch drywall", "ontology_id": "gypsum_board"},
+        {"start": 48, "end": 62, "label": "MODIFIER", "value": "interior walls"}
+      ],
+      "work_type": "drywall",
+      "operation": "hang_and_finish"
+    },
+    {
+      "text": "Install R-19 batt insulation in 1800 SF of wall cavities",
+      "entities": [
+        {"start": 8, "end": 27, "label": "MATERIAL", "value": "R-19 batt insulation", "ontology_id": "insulation_batt"},
+        {"start": 34, "end": 38, "label": "QUANTITY", "value": "1800"},
+        {"start": 39, "end": 41, "label": "UNIT", "value": "SF", "ontology_id": "square_feet"},
+        {"start": 45, "end": 57, "label": "MODIFIER", "value": "wall cavities"}
+      ],
+      "work_type": "insulation",
+      "operation": "install"
+    },
+    {
+      "text": "Run 300 feet of 4 inch PVC pipe for storm drainage system",
+      "entities": [
+        {"start": 4, "end": 7, "label": "QUANTITY", "value": "300"},
+        {"start": 8, "end": 12, "label": "UNIT", "value": "feet", "ontology_id": "linear_feet"},
+        {"start": 16, "end": 31, "label": "MATERIAL", "value": "4 inch PVC pipe", "ontology_id": "pipe"},
+        {"start": 36, "end": 57, "label": "MODIFIER", "value": "storm drainage system"}
+      ],
+      "work_type": "plumbing",
+      "operation": "run"
+    },
+    {
+      "text": "Apply 25 squares of asphalt shingles on sloped roof with 30 year warranty",
+      "entities": [
+        {"start": 6, "end": 8, "label": "QUANTITY", "value": "25"},
+        {"start": 9, "end": 16, "label": "UNIT", "value": "squares"},
+        {"start": 20, "end": 36, "label": "MATERIAL", "value": "asphalt shingles", "ontology_id": "roofing_shingle"},
+        {"start": 40, "end": 51, "label": "MODIFIER", "value": "sloped roof"},
+        {"start": 57, "end": 73, "label": "MODIFIER", "value": "30 year warranty"}
+      ],
+      "work_type": "roofing",
+      "operation": "apply"
+    }
+  ],
+  "entity_types": {
+    "QUANTITY": {
+      "description": "Numeric quantities for materials, labor, or measurements",
+      "examples": ["100", "25.5", "1200"]
+    },
+    "UNIT": {
+      "description": "Units of measurement aligned with construction ontology",
+      "examples": ["SF", "LF", "CY", "EA", "tons"],
+      "ontology_mapping": true
+    },
+    "MATERIAL": {
+      "description": "Construction materials and products",
+      "examples": ["concrete", "rebar", "lumber", "drywall"],
+      "ontology_mapping": true
+    },
+    "OPERATION": {
+      "description": "Construction activities and verbs",
+      "examples": ["install", "pour", "frame", "excavate", "apply"]
+    },
+    "EQUIPMENT": {
+      "description": "Construction equipment and tools",
+      "examples": ["excavator", "crane", "mixer", "compactor"],
+      "ontology_mapping": true
+    },
+    "MODIFIER": {
+      "description": "Descriptive modifiers, specifications, and qualifiers",
+      "examples": ["exterior", "interior", "4000 PSI", "16 OC spacing"]
+    },
+    "CREW_TYPE": {
+      "description": "Types of construction crews and labor",
+      "examples": ["concrete crew", "framers", "electricians"],
+      "ontology_mapping": true
+    }
+  },
+  "additional_training_sentences": [
+    "Provide 150 tons of crushed stone for road base compaction",
+    "Set 24 precast concrete panels using mobile crane",
+    "Install 400 LF of chain link fence with galvanized posts",
+    "Place 8 CY of ready mix concrete for sidewalk construction",
+    "Erect steel frame structure with 50 tons of structural steel",
+    "Apply waterproofing membrane to 3000 SF of foundation walls",
+    "Install HVAC ductwork in 2500 SF residential building",
+    "Grade and compact 5000 SF building pad to 95% density",
+    "Install ceramic tile flooring in 800 SF bathroom area",
+    "Mount solar panels on 4000 SF commercial roof system",
+    "Excavate utility trench 500 LF long by 4 feet deep",
+    "Pour concrete footings with 40 cubic yards of concrete mix",
+    "Frame roof structure using engineered lumber trusses",
+    "Install blown-in cellulose insulation in attic space",
+    "Run copper plumbing lines for hot water distribution",
+    "Set brick veneer on 1200 SF of exterior wall surface",
+    "Apply stucco finish over 2000 SF of exterior wall area",
+    "Install laminate flooring in 1500 SF of living space",
+    "Mount electrical panels and distribution equipment",
+    "Compact granular fill using vibratory plate compactor",
+    "Install aluminum windows in rough openings per schedule",
+    "Apply primer and paint to 3500 SF of interior surfaces",
+    "Set precast concrete steps at building entrance",
+    "Install fire suppression sprinkler system throughout",
+    "Grade parking lot area and apply asphalt paving",
+    "Mount steel handrails on concrete stairs and ramps",
+    "Install moisture barrier under concrete slab",
+    "Apply caulking and sealants at all building joints",
+    "Set granite countertops in kitchen and bath areas",
+    "Install recessed lighting fixtures in drop ceiling"
+  ]
+}

@@ -1,0 +1,358 @@
+name: BidFlow CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  NODE_VERSION: '18'
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  # Test Jobs
+  test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run type check
+        run: npm run type-check
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build application
+        run: npm run build
+
+  test-nlp-engine:
+    runs-on: ubuntu-latest
+    services:
+      neo4j:
+        image: neo4j:5.14.0
+        env:
+          NEO4J_AUTH: neo4j/test
+        ports:
+          - 7687:7687
+          - 7474:7474
+        options: >-
+          --health-cmd="cypher-shell -u neo4j -p test 'MATCH (n) RETURN count(n);'"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m spacy download en_core_web_sm
+
+      - name: Run Python tests
+        run: |
+          python -m pytest test_construction_nlp.py -v
+        env:
+          NEO4J_URI: bolt://localhost:7687
+          NEO4J_USER: neo4j
+          NEO4J_PASSWORD: test
+          REDIS_URL: redis://localhost:6379
+
+      - name: Run construction ontology tests
+        run: |
+          python -c "from neo4j_ontology_store import Neo4jOntologyStore; store = Neo4jOntologyStore('bolt://localhost:7687', 'neo4j', 'test'); print('Neo4j connection successful')"
+
+  # Security Scanning
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  # Model Versioning and Artifact Management
+  model-versioning:
+    runs-on: ubuntu-latest
+    needs: [test-nlp-engine]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install MLflow
+        run: pip install mlflow boto3
+
+      - name: Train and version models
+        run: |
+          python train_construction_models.py
+        env:
+          MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+          MLFLOW_EXPERIMENT_NAME: bidflow-construction-nlp
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          S3_BUCKET: ${{ secrets.MODEL_ARTIFACTS_BUCKET }}
+
+      - name: Upload model artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlp-models-${{ github.sha }}
+          path: models/
+          retention-days: 30
+
+  # Build and Push Docker Images
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: [test-frontend, test-nlp-engine, security-scan]
+    if: github.event_name == 'push'
+    
+    strategy:
+      matrix:
+        service: [frontend, nlp-engine]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.service }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./docker/Dockerfile.${{ matrix.service }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # Deploy to Development
+  deploy-dev:
+    runs-on: ubuntu-latest
+    needs: [build-and-push, model-versioning]
+    if: github.ref == 'refs/heads/develop'
+    environment: development
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBE_CONFIG_DEV }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+
+      - name: Update image tags in manifests
+        run: |
+          sed -i "s|image: bidflow/frontend:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend:develop-${{ github.sha }}|g" k8s/frontend-deployment.yaml
+          sed -i "s|image: bidflow/nlp-engine:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/nlp-engine:develop-${{ github.sha }}|g" k8s/nlp-engine-deployment.yaml
+
+      - name: Deploy to Development
+        run: |
+          kubectl apply -f k8s/namespace.yaml
+          kubectl apply -f k8s/ -n bidflow
+          kubectl rollout status deployment/frontend -n bidflow --timeout=300s
+          kubectl rollout status deployment/nlp-engine -n bidflow --timeout=300s
+
+      - name: Run smoke tests
+        run: |
+          kubectl run smoke-test --rm -i --restart=Never --image=curlimages/curl -- \
+            curl -f http://frontend.bidflow.svc.cluster.local:3000/api/health
+
+  # Deploy to Production
+  deploy-prod:
+    runs-on: ubuntu-latest
+    needs: [build-and-push, model-versioning]
+    if: startsWith(github.ref, 'refs/tags/v')
+    environment: production
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBE_CONFIG_PROD }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+
+      - name: Extract version
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Update image tags in manifests
+        run: |
+          sed -i "s|image: bidflow/frontend:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend:${{ steps.version.outputs.VERSION }}|g" k8s/frontend-deployment.yaml
+          sed -i "s|image: bidflow/nlp-engine:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/nlp-engine:${{ steps.version.outputs.VERSION }}|g" k8s/nlp-engine-deployment.yaml
+
+      - name: Deploy to Production
+        run: |
+          kubectl apply -f k8s/namespace.yaml
+          kubectl apply -f k8s/ -n bidflow
+          kubectl rollout status deployment/frontend -n bidflow --timeout=600s
+          kubectl rollout status deployment/nlp-engine -n bidflow --timeout=600s
+
+      - name: Run production health checks
+        run: |
+          # Wait for services to be ready
+          sleep 30
+          
+          # Test frontend health
+          kubectl run health-check-frontend --rm -i --restart=Never --image=curlimages/curl -- \
+            curl -f http://frontend.bidflow.svc.cluster.local:3000/api/health
+          
+          # Test NLP engine health
+          kubectl run health-check-nlp --rm -i --restart=Never --image=curlimages/curl -- \
+            curl -f http://nlp-engine.bidflow.svc.cluster.local:8000/health
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.VERSION }}
+          release_name: BidFlow ${{ steps.version.outputs.VERSION }}
+          body: |
+            ## Changes in this Release
+            - Automated deployment of version ${{ steps.version.outputs.VERSION }}
+            - Updated ML models with improved accuracy
+            - Enhanced monitoring and observability
+            
+            ## Deployment Information
+            - Frontend: `${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend:${{ steps.version.outputs.VERSION }}`
+            - NLP Engine: `${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/nlp-engine:${{ steps.version.outputs.VERSION }}`
+            
+            ## Monitoring
+            - Grafana Dashboard: https://monitoring.bidflow.elitesd.com
+            - Jaeger Traces: https://traces.bidflow.elitesd.com
+          draft: false
+          prerelease: false
+
+  # Performance Testing
+  performance-test:
+    runs-on: ubuntu-latest
+    needs: [deploy-dev]
+    if: github.ref == 'refs/heads/develop'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run load tests
+        run: |
+          # Install k6
+          curl https://github.com/grafana/k6/releases/download/v0.45.0/k6-v0.45.0-linux-amd64.tar.gz -L | tar xvz --strip-components 1
+          
+          # Create load test script
+          cat > load-test.js << 'EOF'
+          import http from 'k6/http';
+          import { check, sleep } from 'k6';
+
+          export let options = {
+            vus: 10,
+            duration: '2m',
+            thresholds: {
+              http_req_duration: ['p(95)<2000'], // 95% of requests must complete below 2s
+              http_req_failed: ['rate<0.05'], // Error rate must be below 5%
+            },
+          };
+
+          export default function () {
+            // Test NLP parsing endpoint
+            let response = http.post('http://dev.bidflow.elitesd.com/api/parse', {
+              text: 'Install 100 LF of 6 inch concrete sidewalk with reinforcement'
+            });
+            
+            check(response, {
+              'status is 200': (r) => r.status === 200,
+              'response time < 2000ms': (r) => r.timings.duration < 2000,
+            });
+            
+            sleep(1);
+          }
+          EOF
+          
+          ./k6 run load-test.js
+
+      - name: Upload performance results
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-results-${{ github.sha }}
+          path: results.json

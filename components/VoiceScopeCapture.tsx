@@ -459,7 +459,7 @@ export default function VoiceScopeCapture({
               </div>
               <div className="flex items-center gap-2">
                 <Badge variant="outline">
-                  {(scopeCapture.confidence * 100).toFixed(1)}% confidence
+                  {(scopeCapture.confidence ? (scopeCapture.confidence * 100).toFixed(1) : '0.0')}% confidence
                 </Badge>
                 <Button
                   onClick={() => setIsEditing(!isEditing)}

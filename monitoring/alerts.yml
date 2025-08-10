@@ -1,0 +1,113 @@
+groups:
+- name: bidflow_sla_alerts
+  rules:
+  # Parsing Latency SLA Alert
+  - alert: NLPParsingLatencyHigh
+    expr: nlp_request_duration_seconds{quantile="0.95"} > 2.0
+    for: 2m
+    labels:
+      severity: warning
+      service: nlp-engine
+      sla: parsing_latency
+    annotations:
+      summary: "NLP parsing latency is above SLA threshold"
+      description: "95th percentile parsing latency is {{ $value }}s, exceeding 2s SLA threshold for 2 minutes"
+      runbook_url: "https://docs.bidflow.com/runbooks/nlp-latency"
+
+  - alert: NLPParsingLatencyCritical
+    expr: nlp_request_duration_seconds{quantile="0.95"} > 5.0
+    for: 1m
+    labels:
+      severity: critical
+      service: nlp-engine
+      sla: parsing_latency
+    annotations:
+      summary: "NLP parsing latency is critically high"
+      description: "95th percentile parsing latency is {{ $value }}s, critically exceeding SLA"
+      runbook_url: "https://docs.bidflow.com/runbooks/nlp-latency-critical"
+
+  # Cost Engine Error Rate SLA Alert
+  - alert: CostEngineErrorRateHigh
+    expr: increase(nlp_parsing_errors_total[5m]) / increase(nlp_requests_total[5m]) > 0.05
+    for: 2m
+    labels:
+      severity: warning
+      service: cost-engine
+      sla: error_rate
+    annotations:
+      summary: "Cost engine error rate exceeds 5% threshold"
+      description: "Error rate is {{ $value | humanizePercentage }} over the last 5 minutes"
+      runbook_url: "https://docs.bidflow.com/runbooks/cost-engine-errors"
+
+  - alert: CostEngineErrorRateCritical
+    expr: increase(nlp_parsing_errors_total[5m]) / increase(nlp_requests_total[5m]) > 0.10
+    for: 1m
+    labels:
+      severity: critical
+      service: cost-engine
+      sla: error_rate
+    annotations:
+      summary: "Cost engine error rate is critically high"
+      description: "Error rate is {{ $value | humanizePercentage }} over the last 5 minutes, exceeding 10% critical threshold"
+      runbook_url: "https://docs.bidflow.com/runbooks/cost-engine-errors-critical"
+
+  # Service Availability Alerts
+  - alert: ServiceDown
+    expr: up == 0
+    for: 30s
+    labels:
+      severity: critical
+    annotations:
+      summary: "Service {{ $labels.job }} is down"
+      description: "Service {{ $labels.job }} on instance {{ $labels.instance }} has been down for 30 seconds"
+
+  - alert: HighMemoryUsage
+    expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.9
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High memory usage detected"
+      description: "Memory usage is above 90% for 2 minutes"
+
+  # Database Connection Alerts
+  - alert: Neo4jConnectionFailure
+    expr: neo4j_database_store_size_bytes == 0
+    for: 30s
+    labels:
+      severity: critical
+      service: neo4j
+    annotations:
+      summary: "Neo4j database connection failure"
+      description: "Cannot connect to Neo4j database"
+
+  - alert: RedisConnectionFailure
+    expr: redis_connected_clients == 0
+    for: 30s
+    labels:
+      severity: critical
+      service: redis
+    annotations:
+      summary: "Redis connection failure"
+      description: "Cannot connect to Redis cache"
+
+  # Performance Degradation Alerts
+  - alert: OntologyQueryLatencyHigh
+    expr: ontology_query_duration_seconds{quantile="0.95"} > 1.0
+    for: 2m
+    labels:
+      severity: warning
+      service: ontology-store
+    annotations:
+      summary: "Ontology query latency is high"
+      description: "95th percentile ontology query latency is {{ $value }}s"
+
+  - alert: FrontendResponseTimeHigh
+    expr: http_request_duration_seconds{quantile="0.95", job="frontend"} > 3.0
+    for: 2m
+    labels:
+      severity: warning
+      service: frontend
+    annotations:
+      summary: "Frontend response time is high"
+      description: "95th percentile response time is {{ $value }}s for frontend requests"

@@ -1,0 +1,544 @@
+{
+  "demo_info": {
+    "sentences_processed": 8,
+    "total_entities_found": 41,
+    "ontology_terms": 50
+  },
+  "results": [
+    {
+      "input_text": "Install 500 linear feet of concrete footing with #4 rebar at 12 inch centers",
+      "analysis_metadata": {
+        "work_type": "concrete_work",
+        "operation": "install",
+        "confidence_score": 0.8642857142857142,
+        "total_quantity": 500.0,
+        "primary_unit": "linear feet"
+      },
+      "entities": [
+        {
+          "text": "Install",
+          "label": "OPERATION",
+          "start": 0,
+          "end": 7,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "500",
+          "label": "QUANTITY",
+          "start": 8,
+          "end": 11,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "linear feet",
+          "label": "UNIT",
+          "start": 12,
+          "end": 23,
+          "confidence": 0.85,
+          "ontology_id": "linear_feet",
+          "ontology_category": "unit"
+        },
+        {
+          "text": "concrete",
+          "label": "MATERIAL",
+          "start": 27,
+          "end": 35,
+          "confidence": 0.8,
+          "ontology_id": "concrete",
+          "ontology_category": "material"
+        },
+        {
+          "text": "4",
+          "label": "QUANTITY",
+          "start": 50,
+          "end": 51,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "rebar",
+          "label": "MATERIAL",
+          "start": 52,
+          "end": 57,
+          "confidence": 0.8,
+          "ontology_id": "rebar",
+          "ontology_category": "material"
+        },
+        {
+          "text": "12",
+          "label": "QUANTITY",
+          "start": 61,
+          "end": 63,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        }
+      ],
+      "ontology_alignment": {
+        "materials": [
+          {
+            "text": "concrete"
+          },
+          {
+            "text": "rebar"
+          }
+        ],
+        "equipment": []
+      }
+    },
+    {
+      "input_text": "Excavate 25 cubic yards of soil for foundation using track hoe",
+      "analysis_metadata": {
+        "work_type": "concrete_work",
+        "operation": "excavate",
+        "confidence_score": 0.8625,
+        "total_quantity": 25.0,
+        "primary_unit": "cubic yards"
+      },
+      "entities": [
+        {
+          "text": "Excavate",
+          "label": "OPERATION",
+          "start": 0,
+          "end": 8,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "25",
+          "label": "QUANTITY",
+          "start": 9,
+          "end": 11,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "cubic yards",
+          "label": "UNIT",
+          "start": 12,
+          "end": 23,
+          "confidence": 0.85,
+          "ontology_id": "cubic_yards",
+          "ontology_category": "unit"
+        },
+        {
+          "text": "track hoe",
+          "label": "EQUIPMENT",
+          "start": 53,
+          "end": 62,
+          "confidence": 0.8,
+          "ontology_id": "excavator",
+          "ontology_category": "equipment"
+        }
+      ],
+      "ontology_alignment": {
+        "materials": [],
+        "equipment": [
+          {
+            "text": "track hoe"
+          }
+        ]
+      }
+    },
+    {
+      "input_text": "Frame 1200 SF of exterior walls using 2x6 lumber at 16 OC spacing",
+      "analysis_metadata": {
+        "work_type": "framing",
+        "operation": "frame",
+        "confidence_score": 0.8699999999999999,
+        "total_quantity": 1200.0,
+        "primary_unit": "SF"
+      },
+      "entities": [
+        {
+          "text": "Frame",
+          "label": "OPERATION",
+          "start": 0,
+          "end": 5,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "1200",
+          "label": "QUANTITY",
+          "start": 6,
+          "end": 10,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "SF",
+          "label": "UNIT",
+          "start": 11,
+          "end": 13,
+          "confidence": 0.85,
+          "ontology_id": "square_feet",
+          "ontology_category": "unit"
+        },
+        {
+          "text": "lumber",
+          "label": "MATERIAL",
+          "start": 42,
+          "end": 48,
+          "confidence": 0.8,
+          "ontology_id": "lumber",
+          "ontology_category": "material"
+        },
+        {
+          "text": "16",
+          "label": "QUANTITY",
+          "start": 52,
+          "end": 54,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        }
+      ],
+      "ontology_alignment": {
+        "materials": [
+          {
+            "text": "lumber"
+          }
+        ],
+        "equipment": []
+      }
+    },
+    {
+      "input_text": "Pour 15 CY of concrete for slab on grade with 4000 PSI strength",
+      "analysis_metadata": {
+        "work_type": "concrete_work",
+        "operation": "pour",
+        "confidence_score": 0.8699999999999999,
+        "total_quantity": 15.0,
+        "primary_unit": "CY"
+      },
+      "entities": [
+        {
+          "text": "Pour",
+          "label": "OPERATION",
+          "start": 0,
+          "end": 4,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "15",
+          "label": "QUANTITY",
+          "start": 5,
+          "end": 7,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "CY",
+          "label": "UNIT",
+          "start": 8,
+          "end": 10,
+          "confidence": 0.85,
+          "ontology_id": "cubic_yards",
+          "ontology_category": "unit"
+        },
+        {
+          "text": "concrete",
+          "label": "MATERIAL",
+          "start": 14,
+          "end": 22,
+          "confidence": 0.8,
+          "ontology_id": "concrete",
+          "ontology_category": "material"
+        },
+        {
+          "text": "4000",
+          "label": "QUANTITY",
+          "start": 46,
+          "end": 50,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        }
+      ],
+      "ontology_alignment": {
+        "materials": [
+          {
+            "text": "concrete"
+          }
+        ],
+        "equipment": []
+      }
+    },
+    {
+      "input_text": "Install electrical conduit 200 LF of 3/4 inch EMT for branch circuits",
+      "analysis_metadata": {
+        "work_type": "electrical",
+        "operation": "install",
+        "confidence_score": 0.8642857142857142,
+        "total_quantity": 200.0,
+        "primary_unit": "LF"
+      },
+      "entities": [
+        {
+          "text": "Install",
+          "label": "OPERATION",
+          "start": 0,
+          "end": 7,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "electrical conduit",
+          "label": "MATERIAL",
+          "start": 8,
+          "end": 26,
+          "confidence": 0.8,
+          "ontology_id": "conduit",
+          "ontology_category": "material"
+        },
+        {
+          "text": "200",
+          "label": "QUANTITY",
+          "start": 27,
+          "end": 30,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "LF",
+          "label": "UNIT",
+          "start": 31,
+          "end": 33,
+          "confidence": 0.85,
+          "ontology_id": "linear_feet",
+          "ontology_category": "unit"
+        },
+        {
+          "text": "3",
+          "label": "QUANTITY",
+          "start": 37,
+          "end": 38,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "4",
+          "label": "QUANTITY",
+          "start": 39,
+          "end": 40,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "EMT",
+          "label": "MATERIAL",
+          "start": 46,
+          "end": 49,
+          "confidence": 0.8,
+          "ontology_id": "conduit",
+          "ontology_category": "material"
+        }
+      ],
+      "ontology_alignment": {
+        "materials": [
+          {
+            "text": "electrical conduit"
+          },
+          {
+            "text": "EMT"
+          }
+        ],
+        "equipment": []
+      }
+    },
+    {
+      "input_text": "Lay 800 concrete masonry units for retaining wall with mortar joints",
+      "analysis_metadata": {
+        "work_type": "concrete_work",
+        "operation": "lay",
+        "confidence_score": 0.8666666666666667,
+        "total_quantity": 800.0,
+        "primary_unit": null
+      },
+      "entities": [
+        {
+          "text": "Lay",
+          "label": "OPERATION",
+          "start": 0,
+          "end": 3,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "800",
+          "label": "QUANTITY",
+          "start": 4,
+          "end": 7,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "concrete",
+          "label": "MATERIAL",
+          "start": 8,
+          "end": 16,
+          "confidence": 0.8,
+          "ontology_id": "concrete",
+          "ontology_category": "material"
+        }
+      ],
+      "ontology_alignment": {
+        "materials": [
+          {
+            "text": "concrete"
+          }
+        ],
+        "equipment": []
+      }
+    },
+    {
+      "input_text": "Hang and finish 2400 SF of 5/8 inch drywall on interior walls",
+      "analysis_metadata": {
+        "work_type": "drywall",
+        "operation": "hang",
+        "confidence_score": 0.8785714285714287,
+        "total_quantity": 2400.0,
+        "primary_unit": "SF"
+      },
+      "entities": [
+        {
+          "text": "Hang",
+          "label": "OPERATION",
+          "start": 0,
+          "end": 4,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "finish",
+          "label": "OPERATION",
+          "start": 9,
+          "end": 15,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "2400",
+          "label": "QUANTITY",
+          "start": 16,
+          "end": 20,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "SF",
+          "label": "UNIT",
+          "start": 21,
+          "end": 23,
+          "confidence": 0.85,
+          "ontology_id": "square_feet",
+          "ontology_category": "unit"
+        },
+        {
+          "text": "5",
+          "label": "QUANTITY",
+          "start": 27,
+          "end": 28,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "8",
+          "label": "QUANTITY",
+          "start": 29,
+          "end": 30,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "drywall",
+          "label": "MATERIAL",
+          "start": 36,
+          "end": 43,
+          "confidence": 0.8,
+          "ontology_id": "gypsum_board",
+          "ontology_category": "material"
+        }
+      ],
+      "ontology_alignment": {
+        "materials": [
+          {
+            "text": "drywall"
+          }
+        ],
+        "equipment": []
+      }
+    },
+    {
+      "input_text": "Apply 25 squares of asphalt shingles on sloped roof",
+      "analysis_metadata": {
+        "work_type": "roofing",
+        "operation": "apply",
+        "confidence_score": 0.8666666666666667,
+        "total_quantity": 25.0,
+        "primary_unit": null
+      },
+      "entities": [
+        {
+          "text": "Apply",
+          "label": "OPERATION",
+          "start": 0,
+          "end": 5,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "25",
+          "label": "QUANTITY",
+          "start": 6,
+          "end": 8,
+          "confidence": 0.9,
+          "ontology_id": null,
+          "ontology_category": null
+        },
+        {
+          "text": "shingles",
+          "label": "MATERIAL",
+          "start": 28,
+          "end": 36,
+          "confidence": 0.8,
+          "ontology_id": "roofing_shingle",
+          "ontology_category": "material"
+        }
+      ],
+      "ontology_alignment": {
+        "materials": [
+          {
+            "text": "shingles"
+          }
+        ],
+        "equipment": []
+      }
+    }
+  ]
+}

@@ -1,15 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HomePage } from './components/HomePage';
 import { ProposalTemplate } from './components/ProposalTemplate';
 import { AIProposalCreator } from './components/AIProposalCreator';
 import MeasurementCapture from './components/measurement/MeasurementCapture';
+import EstimationWorkspace from './components/EstimationWorkspace';
+import LoginPage from './components/LoginPage';
+import { AuthService, User } from './lib/auth-service';
+import { ExportService, EstimationProject } from './lib/export-service';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'ai-creator' | 'proposal' | 'field-capture'>('home');
+  const [currentUser, setCurrentUser] = useState<User | null>(null)
+  const [currentView, setCurrentView] = useState<'home' | 'ai-creator' | 'proposal' | 'field-capture' | 'estimation'>('home');
   const [currentProposal, setCurrentProposal] = useState<any>(null);
   const [isNewVersion, setIsNewVersion] = useState(false);
   const [baseProposal, setBaseProposal] = useState<any>(null);
   const [fieldData, setFieldData] = useState<any>(null);
+  const [currentProject, setCurrentProject] = useState<EstimationProject | null>(null)
+
+  // Check for existing authentication on app load
+  useEffect(() => {
+    const user = AuthService.getCurrentUser()
+    if (user) {
+      setCurrentUser(user)
+    }
+  }, [])
 
   const handleNewProposal = () => {
     setCurrentProposal(null);
@@ -125,6 +139,53 @@ export default function App() {
     setCurrentView('home');
   };
 
+  // New handlers for estimation workspace
+  const handleStartEstimation = () => {
+    setCurrentProject(null)
+    setCurrentView('estimation')
+  }
+
+  const handleEditEstimationProject = (project: EstimationProject) => {
+    setCurrentProject(project)
+    setCurrentView('estimation')
+  }
+
+  const handleSaveProject = (project: EstimationProject) => {
+    // In a real app, this would save to a backend
+    setCurrentProject(project)
+    console.log('Project saved:', project)
+  }
+
+  const handleExportProject = async (format: 'excel' | 'pdf') => {
+    if (!currentProject) return
+    
+    try {
+      if (format === 'excel') {
+        await ExportService.exportToExcel(currentProject)
+      } else {
+        await ExportService.exportToPDF(currentProject)
+      }
+    } catch (error) {
+      console.error('Export failed:', error)
+    }
+  }
+
+  const handleLogin = (user: User) => {
+    setCurrentUser(user)
+  }
+
+  const handleLogout = () => {
+    AuthService.logout()
+    setCurrentUser(null)
+    setCurrentView('home')
+    setCurrentProject(null)
+  }
+
+  // If not authenticated, show login page
+  if (!currentUser) {
+    return <LoginPage onLogin={handleLogin} />
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {currentView === 'home' ? (
@@ -134,6 +195,10 @@ export default function App() {
           onNewVersion={handleNewVersion}
           onCreateManual={handleCreateManual}
           onFieldCapture={handleFieldCapture}
+          onStartEstimation={handleStartEstimation}
+          onEditEstimationProject={handleEditEstimationProject}
+          currentUser={currentUser}
+          onLogout={handleLogout}
         />
       ) : currentView === 'ai-creator' ? (
         <AIProposalCreator 
@@ -147,6 +212,13 @@ export default function App() {
             setFieldData(data);
             setCurrentView('home');
           }}
+        />
+      ) : currentView === 'estimation' ? (
+        <EstimationWorkspace
+          userRole={currentUser.role}
+          project={currentProject || undefined}
+          onSave={handleSaveProject}
+          onExport={handleExportProject}
         />
       ) : (
         <ProposalTemplate 

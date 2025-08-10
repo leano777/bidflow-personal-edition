@@ -4,6 +4,7 @@ export * from './audio-processor';
 export * from './transcription-service';
 export * from './scope-organizer';
 export * from './measurement-parser';
+export * from './quantity-normalizer';
 
 import { AudioProcessor } from './audio-processor';
 import { TranscriptionService, TranscriptionResult } from './transcription-service';

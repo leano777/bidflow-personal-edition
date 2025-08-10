@@ -4,12 +4,14 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
-import { Plus, FileText, Trash2, RefreshCw, Building, User, MapPin, Calendar, GitBranch, TrendingUp, Search, Filter, Settings, Users } from 'lucide-react';
+import { Plus, FileText, Trash2, RefreshCw, Building, UserIcon, MapPin, Calendar, GitBranch, TrendingUp, Search, Filter, Settings, Users, LogOut, Calculator, Layers } from 'lucide-react';
 import { Input } from './ui/input';
 import { CRMIntegrations } from './CRMIntegrations';
 import { toast } from 'sonner';
 import { Toaster } from './ui/sonner';
 import { projectId, publicAnonKey } from '../utils/supabase/info';
+import { User } from '../lib/auth-service';
+import type { EstimationProject as EstProject } from '../lib/export-service';
 
 interface SavedProposal {
   id: string;
@@ -30,9 +32,23 @@ interface HomePageProps {
   onNewVersion: (baseProposal: any) => void;
   onCreateManual?: () => void;
   onFieldCapture?: () => void;
+  onStartEstimation?: () => void;
+  onEditEstimationProject?: (project: EstProject) => void;
+  currentUser?: User;
+  onLogout?: () => void;
 }
 
-export function HomePage({ onNewProposal, onEditProposal, onNewVersion, onCreateManual, onFieldCapture }: HomePageProps) {
+export function HomePage({ 
+  onNewProposal, 
+  onEditProposal, 
+  onNewVersion, 
+  onCreateManual, 
+  onFieldCapture,
+  onStartEstimation,
+  onEditEstimationProject,
+  currentUser,
+  onLogout
+}: HomePageProps) {
   const [savedProposals, setSavedProposals] = useState<SavedProposal[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -227,11 +243,31 @@ export function HomePage({ onNewProposal, onEditProposal, onNewVersion, onCreate
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6 lg:mb-8">
             <div className="mb-4 lg:mb-0">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-slate-800 to-blue-600 bg-clip-text text-transparent mb-2 lg:mb-3">
-                Lineage Builders Inc.
+                BidFlow Personal
               </h1>
-              <p className="text-base sm:text-lg text-slate-600 font-medium">Construction Proposal Management</p>
+              <p className="text-base sm:text-lg text-slate-600 font-medium">AI-Powered Construction Estimating</p>
+              {currentUser && (
+                <div className="flex items-center gap-2 mt-2">
+                  <Badge variant="outline" className="text-xs">
+                    {currentUser.name}
+                  </Badge>
+                  <Badge variant={currentUser.role.type === 'estimator' ? 'default' : currentUser.role.type === 'pm' ? 'secondary' : 'outline'}>
+                    {currentUser.role.type.toUpperCase()}
+                  </Badge>
+                </div>
+              )}
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
+              {currentUser && onLogout && (
+                <Button
+                  variant="outline"
+                  onClick={onLogout}
+                  className="border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 transition-all duration-200"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Logout
+                </Button>
+              )}
               <Button
                 variant="outline"
                 onClick={loadSavedProposals}
@@ -273,16 +309,29 @@ export function HomePage({ onNewProposal, onEditProposal, onNewVersion, onCreate
             </div>
           </div>
           
-          {onFieldCapture && (
-            <Button
-              onClick={onFieldCapture}
-              className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 shadow-lg hover:shadow-xl transition-all duration-200 text-white mb-4"
-              size="lg"
-            >
-              <MapPin className="w-5 h-5 mr-2" />
-              Field Measurement
-            </Button>
-          )}
+          {/* New Tools Section */}
+          <div className="flex flex-wrap gap-3 mb-4">
+            {onFieldCapture && (
+              <Button
+                onClick={onFieldCapture}
+                className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 shadow-lg hover:shadow-xl transition-all duration-200 text-white"
+                size="lg"
+              >
+                <MapPin className="w-5 h-5 mr-2" />
+                Field Measurement
+              </Button>
+            )}
+            {onStartEstimation && currentUser?.role.permissions.canEdit && (
+              <Button
+                onClick={onStartEstimation}
+                className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 shadow-lg hover:shadow-xl transition-all duration-200 text-white"
+                size="lg"
+              >
+                <Calculator className="w-5 h-5 mr-2" />
+                Estimation Workspace
+              </Button>
+            )}
+          </div>
           {/* Search Bar */}
           <div className="relative max-w-md">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
@@ -453,7 +502,7 @@ export function HomePage({ onNewProposal, onEditProposal, onNewVersion, onCreate
                     <CardContent className="pt-4">
                       <div className="space-y-3 mb-4">
                         <div className="flex items-center text-sm text-slate-600">
-                          <User className="w-4 h-4 mr-3 flex-shrink-0 text-slate-400" />
+                          <UserIcon className="w-4 h-4 mr-3 flex-shrink-0 text-slate-400" />
                           <span className="truncate font-medium">{proposal.clientName}</span>
                         </div>
                         

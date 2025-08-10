@@ -12,6 +12,13 @@ import {
   CONSTRUCTION_TRADES,
   SKILL_LEVELS
 } from './types';
+import { 
+  QuantityNormalizer, 
+  QuantityNormalizationResult,
+  QuantityAmbiguity,
+  NormalizedQuantity,
+  AggregatedItem 
+} from './quantity-normalizer';
 
 export class ScopeOrganizer {
   private tradeSequence: Record<string, number> = {
@@ -36,6 +43,12 @@ export class ScopeOrganizer {
     'Cleanup': 19
   };
 
+  private quantityNormalizer: QuantityNormalizer;
+
+  constructor() {
+    this.quantityNormalizer = new QuantityNormalizer();
+  }
+
   /**
    * Organize transcribed scope into structured work categories
    */
@@ -53,15 +66,18 @@ export class ScopeOrganizer {
         photos: contextPhotos
       };
 
-      // Analyze the transcription and extract structured data
-      const organized = await this.analyzeTranscription(prompt);
+      // Step 1: Normalize and validate quantities
+      const quantityNormalization = await this.normalizeQuantities(measurements, transcription);
       
-      // Generate suggestions and warnings
-      const suggestions = this.generateSuggestions(organized);
-      const warnings = this.validateScope(organized);
+      // Step 2: Analyze the transcription and extract structured data
+      const organized = await this.analyzeTranscription(prompt, quantityNormalization);
       
-      // Calculate confidence based on various factors
-      const confidence = this.calculateConfidence(organized, measurements);
+      // Step 3: Generate suggestions and warnings (including quantity-related ones)
+      const suggestions = this.generateSuggestions(organized, quantityNormalization);
+      const warnings = this.validateScope(organized, quantityNormalization);
+      
+      // Step 4: Calculate confidence based on various factors
+      const confidence = this.calculateConfidence(organized, measurements, quantityNormalization);
       
       const processingTime = Date.now() - startTime;
       
@@ -79,16 +95,27 @@ export class ScopeOrganizer {
   }
 
   /**
+   * Normalize quantities for improved accuracy and validation
+   */
+  private async normalizeQuantities(measurements: VoiceMeasurement[], context: string): Promise<QuantityNormalizationResult> {
+    console.log(`📏 Normalizing ${measurements.length} measurements...`);
+    return this.quantityNormalizer.normalizeQuantities(measurements, context);
+  }
+
+  /**
    * Analyze transcription and create organized scope structure
    */
-  private async analyzeTranscription(prompt: ScopeAnalysisPrompt): Promise<OrganizedScope> {
+  private async analyzeTranscription(
+    prompt: ScopeAnalysisPrompt, 
+    quantityNormalization?: QuantityNormalizationResult
+  ): Promise<OrganizedScope> {
     const text = prompt.transcription.toLowerCase();
     
     // Extract project summary
     const projectSummary = this.extractProjectSummary(text);
     
-    // Categorize work items
-    const workCategories = this.categorizeWork(text, prompt.measurements);
+    // Categorize work items (use normalized quantities if available)
+    const workCategories = this.categorizeWork(text, prompt.measurements, quantityNormalization);
     
     // Extract material specifications
     const materialSpecs = this.extractMaterials(text);
@@ -147,7 +174,11 @@ export class ScopeOrganizer {
   /**
    * Categorize work items into trade categories
    */
-  private categorizeWork(text: string, measurements: VoiceMeasurement[]): WorkCategory[] {
+  private categorizeWork(
+    text: string, 
+    measurements: VoiceMeasurement[], 
+    quantityNormalization?: QuantityNormalizationResult
+  ): WorkCategory[] {
     const categories: WorkCategory[] = [];
     const foundTrades = new Set<string>();
 
@@ -543,7 +574,10 @@ export class ScopeOrganizer {
   /**
    * Generate suggestions for improvement
    */
-  private generateSuggestions(scope: OrganizedScope): string[] {
+  private generateSuggestions(
+    scope: OrganizedScope, 
+    quantityNormalization?: QuantityNormalizationResult
+  ): string[] {
     const suggestions: string[] = [];
 
     // Check for missing common trades
@@ -566,13 +600,36 @@ export class ScopeOrganizer {
       suggestions.push('Consider breaking large projects into phases');
     }
 
+    // Add quantity-related suggestions
+    if (quantityNormalization) {
+      // Suggest reviewing low-confidence items
+      const lowConfidenceItems = quantityNormalization.aggregatedItems.filter(item => item.confidence < 0.7);
+      if (lowConfidenceItems.length > 0) {
+        suggestions.push(`Review ${lowConfidenceItems.length} quantity measurement${lowConfidenceItems.length > 1 ? 's' : ''} with low confidence`);
+      }
+
+      // Suggest addressing dimension validation failures
+      const failedValidations = quantityNormalization.dimensionValidations.filter(dv => dv.validationLevel === 'fail');
+      if (failedValidations.length > 0) {
+        suggestions.push('Verify dimensional calculations - some measurements don\'t match expected values');
+      }
+
+      // Suggest consolidating similar items
+      if (quantityNormalization.aggregatedItems.length > 15) {
+        suggestions.push('Consider consolidating similar line items to simplify the estimate');
+      }
+    }
+
     return suggestions;
   }
 
   /**
    * Validate scope for completeness and accuracy
    */
-  private validateScope(scope: OrganizedScope): string[] {
+  private validateScope(
+    scope: OrganizedScope, 
+    quantityNormalization?: QuantityNormalizationResult
+  ): string[] {
     const warnings: string[] = [];
 
     // Check for empty categories
@@ -595,13 +652,39 @@ export class ScopeOrganizer {
       warnings.push('Multiple high-risk trades require careful coordination');
     }
 
+    // Add quantity-related warnings
+    if (quantityNormalization) {
+      // Warn about critical ambiguities
+      const criticalAmbiguities = quantityNormalization.flaggedAmbiguities.filter(
+        amb => amb.severity === 'critical' || amb.severity === 'high'
+      );
+      if (criticalAmbiguities.length > 0) {
+        warnings.push(`${criticalAmbiguities.length} critical measurement ambiguit${criticalAmbiguities.length > 1 ? 'ies require' : 'y requires'} user confirmation`);
+      }
+
+      // Warn about dimension validation failures
+      const validationErrors = quantityNormalization.qualityMetrics.validationErrors;
+      if (validationErrors > 0) {
+        warnings.push(`${validationErrors} dimensional validation error${validationErrors > 1 ? 's' : ''} detected - verify measurements`);
+      }
+
+      // Warn about low normalization success rate
+      if (quantityNormalization.qualityMetrics.normalizationSuccess < 0.8) {
+        warnings.push(`Low quantity normalization success rate: ${(quantityNormalization.qualityMetrics.normalizationSuccess * 100).toFixed(1)}%`);
+      }
+    }
+
     return warnings;
   }
 
   /**
    * Calculate overall confidence score
    */
-  private calculateConfidence(scope: OrganizedScope, measurements: VoiceMeasurement[]): number {
+  private calculateConfidence(
+    scope: OrganizedScope, 
+    measurements: VoiceMeasurement[], 
+    quantityNormalization?: QuantityNormalizationResult
+  ): number {
     let confidence = 0.5; // Base confidence
 
     // Boost for identified categories
@@ -613,11 +696,27 @@ export class ScopeOrganizer {
     // Boost for material specs
     confidence += scope.materialSpecs.length * 0.03;
 
-    // Penalty for warnings
-    const warnings = this.validateScope(scope);
+    // Include quantity normalization confidence if available
+    if (quantityNormalization) {
+      // Weight the normalization confidence heavily
+      confidence = (confidence + quantityNormalization.qualityMetrics.overallConfidence * 2) / 3;
+      
+      // Penalty for high ambiguity count
+      const ambiguityPenalty = quantityNormalization.qualityMetrics.ambiguityCount * 0.03;
+      confidence -= ambiguityPenalty;
+      
+      // Boost for high completeness score
+      confidence += quantityNormalization.qualityMetrics.completenessScore * 0.1;
+      
+      // Penalty for validation errors
+      confidence -= quantityNormalization.qualityMetrics.validationErrors * 0.05;
+    }
+
+    // Penalty for warnings (use updated validateScope with quantity normalization)
+    const warnings = this.validateScope(scope, quantityNormalization);
     confidence -= warnings.length * 0.05;
 
-    // Cap at 1.0
-    return Math.min(confidence, 1.0);
+    // Cap between 0.1 and 1.0
+    return Math.min(Math.max(confidence, 0.1), 1.0);
   }
 }

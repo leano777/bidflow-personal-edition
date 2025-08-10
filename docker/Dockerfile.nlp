@@ -1,0 +1,225 @@
+# Python NLP Engine Dockerfile
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    gcc \
+    g++ \
+    make \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create app directory
+WORKDIR /app
+
+# Install Python dependencies
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install additional monitoring and instrumentation packages
+RUN pip install \
+    fastapi==0.104.1 \
+    uvicorn==0.24.0 \
+    prometheus-client==0.19.0 \
+    opentelemetry-api==1.21.0 \
+    opentelemetry-sdk==1.21.0 \
+    opentelemetry-instrumentation-fastapi==0.42b0 \
+    opentelemetry-instrumentation-requests==0.42b0 \
+    opentelemetry-exporter-jaeger-thrift==1.21.0 \
+    opentelemetry-exporter-prometheus==1.12.0rc1 \
+    redis==5.0.1
+
+# Download spaCy English model
+RUN python -m spacy download en_core_web_sm
+
+# Copy application code
+COPY . .
+
+# Create directory for model artifacts
+RUN mkdir -p /app/models /app/logs
+
+# Create non-root user
+RUN adduser --disabled-password --gecos '' nlpuser
+RUN chown -R nlpuser:nlpuser /app
+USER nlpuser
+
+# Expose port
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Create the FastAPI application
+RUN cat > /app/nlp_service.py << 'EOF'
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import List, Dict, Optional
+import os
+import logging
+import time
+import asyncio
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.jaeger.thrift import JaegerExporter
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+import redis
+
+# Import our NLP modules
+from construction_nlp_engine import ConstructionNLPEngine
+from neo4j_ontology_store import Neo4jOntologyStore
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Initialize OpenTelemetry tracing
+trace.set_tracer_provider(TracerProvider())
+tracer = trace.get_tracer(__name__)
+
+jaeger_exporter = JaegerExporter(
+    agent_host_name=os.getenv("JAEGER_HOST", "jaeger"),
+    agent_port=int(os.getenv("JAEGER_PORT", "6832")),
+)
+
+span_processor = BatchSpanProcessor(jaeger_exporter)
+trace.get_tracer_provider().add_span_processor(span_processor)
+
+# Prometheus metrics
+REQUEST_COUNT = Counter('nlp_requests_total', 'Total NLP requests', ['method', 'endpoint'])
+REQUEST_LATENCY = Histogram('nlp_request_duration_seconds', 'Request latency')
+PARSING_ERRORS = Counter('nlp_parsing_errors_total', 'Total parsing errors')
+ONTOLOGY_QUERIES = Histogram('ontology_query_duration_seconds', 'Ontology query latency')
+
+app = FastAPI(title="BidFlow NLP Engine", version="1.0.0")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Instrument FastAPI with OpenTelemetry
+FastAPIInstrumentor.instrument_app(app)
+
+# Initialize services
+nlp_engine = None
+ontology_store = None
+redis_client = None
+
+@app.on_event("startup")
+async def startup_event():
+    global nlp_engine, ontology_store, redis_client
+    
+    # Initialize Redis
+    redis_url = os.getenv("REDIS_URL", "redis://localhost:6379")
+    redis_client = redis.from_url(redis_url)
+    
+    # Initialize NLP Engine
+    nlp_engine = ConstructionNLPEngine()
+    
+    # Initialize Ontology Store
+    neo4j_uri = os.getenv("NEO4J_URI", "bolt://localhost:7687")
+    neo4j_user = os.getenv("NEO4J_USER", "neo4j")
+    neo4j_password = os.getenv("NEO4J_PASSWORD", "password")
+    ontology_store = Neo4jOntologyStore(neo4j_uri, neo4j_user, neo4j_password)
+    
+    logger.info("NLP Engine service started successfully")
+
+class ParseRequest(BaseModel):
+    text: str
+    context: Optional[Dict] = None
+
+class ParseResponse(BaseModel):
+    entities: List[Dict]
+    analysis: Dict
+    confidence_score: float
+    processing_time: float
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {"status": "healthy", "service": "nlp-engine", "timestamp": time.time()}
+
+@app.get("/metrics")
+async def metrics():
+    """Prometheus metrics endpoint"""
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
+@app.post("/parse", response_model=ParseResponse)
+async def parse_construction_text(request: ParseRequest):
+    """Parse construction text and extract entities"""
+    with tracer.start_as_current_span("parse_construction_text") as span:
+        start_time = time.time()
+        
+        try:
+            REQUEST_COUNT.labels(method="POST", endpoint="/parse").inc()
+            
+            span.set_attribute("text_length", len(request.text))
+            span.set_attribute("has_context", request.context is not None)
+            
+            # Process with NLP engine
+            with REQUEST_LATENCY.time():
+                analysis = nlp_engine.analyze_scope(request.text)
+            
+            processing_time = time.time() - start_time
+            span.set_attribute("processing_time", processing_time)
+            
+            response = ParseResponse(
+                entities=analysis.entities,
+                analysis={
+                    "work_type": analysis.work_type,
+                    "operation": analysis.operation,
+                    "materials": analysis.materials,
+                    "equipment": analysis.equipment
+                },
+                confidence_score=analysis.confidence_score,
+                processing_time=processing_time
+            )
+            
+            logger.info(f"Successfully parsed text in {processing_time:.3f}s")
+            return response
+            
+        except Exception as e:
+            PARSING_ERRORS.inc()
+            span.record_exception(e)
+            logger.error(f"Error parsing text: {str(e)}")
+            raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/ontology/search/{term}")
+async def search_ontology(term: str):
+    """Search construction ontology"""
+    with tracer.start_as_current_span("search_ontology") as span:
+        try:
+            with ONTOLOGY_QUERIES.time():
+                result = ontology_store.find_term_by_input(term)
+            
+            span.set_attribute("search_term", term)
+            span.set_attribute("found_result", result is not None)
+            
+            return {"term": term, "result": result}
+            
+        except Exception as e:
+            span.record_exception(e)
+            logger.error(f"Error searching ontology: {str(e)}")
+            raise HTTPException(status_code=500, detail=str(e))
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")
+EOF
+
+# Start the service
+CMD ["python", "nlp_service.py"]

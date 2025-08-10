@@ -1,0 +1,911 @@
+{
+  "work_type": {
+    "concrete_work": {
+      "description": "Concrete placement, finishing, and related work",
+      "synonyms": [
+        "concrete_pour",
+        "concrete_finishing",
+        "concrete_placement"
+      ],
+      "abbreviations": [
+        "CONC",
+        "CNC"
+      ],
+      "related_terms": [
+        "formwork",
+        "curing",
+        "reinforcement"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "electrical": {
+      "description": "Electrical system installation and wiring",
+      "synonyms": [
+        "wiring",
+        "electrical_work"
+      ],
+      "abbreviations": [
+        "EL",
+        "ELEC"
+      ],
+      "related_terms": [
+        "conduit",
+        "panel",
+        "wire"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "framing": {
+      "description": "Structural framing including wood and steel",
+      "synonyms": [
+        "structural_framing",
+        "rough_carpentry"
+      ],
+      "abbreviations": [
+        "FRAM",
+        "RC"
+      ],
+      "related_terms": [
+        "fasteners",
+        "structural_engineering",
+        "lumber"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "flooring": {
+      "description": "Floor covering installation",
+      "synonyms": [
+        "floor_covering",
+        "floor_installation"
+      ],
+      "abbreviations": [
+        "FLRG",
+        "FLR"
+      ],
+      "related_terms": [
+        "adhesive",
+        "transition_strips",
+        "underlayment"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "roofing": {
+      "description": "Roof installation and waterproofing",
+      "synonyms": [
+        "roof_work",
+        "roof_installation"
+      ],
+      "abbreviations": [
+        "RF",
+        "ROOF"
+      ],
+      "related_terms": [
+        "flashing",
+        "underlayment",
+        "shingles"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "masonry": {
+      "description": "Brick, block, and stone work",
+      "synonyms": [
+        "brick_work",
+        "stone_work",
+        "block_work"
+      ],
+      "abbreviations": [
+        "MASN",
+        "MAS"
+      ],
+      "related_terms": [
+        "concrete_block",
+        "brick",
+        "mortar"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "drywall": {
+      "description": "Drywall installation and finishing",
+      "synonyms": [
+        "gypsum_board",
+        "sheetrock"
+      ],
+      "abbreviations": [
+        "GWB",
+        "DW"
+      ],
+      "related_terms": [
+        "tape",
+        "texture",
+        "mud"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "excavation": {
+      "description": "Earth removal and site preparation work",
+      "synonyms": [
+        "site_prep",
+        "earth_work",
+        "digging"
+      ],
+      "abbreviations": [
+        "EXCV",
+        "EXC"
+      ],
+      "related_terms": [
+        "trenching",
+        "grading",
+        "backfill"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "plumbing": {
+      "description": "Plumbing system installation",
+      "synonyms": [
+        "pipe_work",
+        "plumbing_work"
+      ],
+      "abbreviations": [
+        "PL",
+        "PLMB"
+      ],
+      "related_terms": [
+        "pipe",
+        "fixtures",
+        "fittings"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "insulation": {
+      "description": "Thermal and acoustic insulation installation",
+      "synonyms": [
+        "insulation_work"
+      ],
+      "abbreviations": [
+        "INS",
+        "INSUL"
+      ],
+      "related_terms": [
+        "batt_insulation",
+        "spray_foam",
+        "vapor_barrier"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    }
+  },
+  "material": {
+    "insulation_batt": {
+      "description": "Fiberglass batt insulation",
+      "synonyms": [
+        "batt_insulation",
+        "fiberglass_insulation"
+      ],
+      "abbreviations": [
+        "INSUL",
+        "FG"
+      ],
+      "related_terms": [
+        "staples",
+        "vapor_barrier"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "gypsum_board": {
+      "description": "Drywall panels",
+      "synonyms": [
+        "drywall",
+        "wallboard",
+        "sheetrock"
+      ],
+      "abbreviations": [
+        "GWB",
+        "DW"
+      ],
+      "related_terms": [
+        "tape",
+        "compound",
+        "screws"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "pipe": {
+      "description": "Plumbing pipe",
+      "synonyms": [
+        "plumbing_pipe",
+        "water_pipe"
+      ],
+      "abbreviations": [
+        "PP",
+        "PVC"
+      ],
+      "related_terms": [
+        "fittings",
+        "joints",
+        "sealant"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "concrete": {
+      "description": "Portland cement concrete",
+      "synonyms": [
+        "cement",
+        "concrete_mix"
+      ],
+      "abbreviations": [
+        "CONC",
+        "CNC"
+      ],
+      "related_terms": [
+        "cement",
+        "aggregate",
+        "water"
+      ],
+      "unit_conversions": {},
+      "properties": {
+        "strength": "variable",
+        "curing_time": "28_days"
+      }
+    },
+    "brick": {
+      "description": "Clay brick for masonry",
+      "synonyms": [
+        "clay_brick",
+        "face_brick"
+      ],
+      "abbreviations": [
+        "BRK",
+        "BR"
+      ],
+      "related_terms": [
+        "flashing",
+        "ties",
+        "mortar"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "conduit": {
+      "description": "Electrical conduit piping",
+      "synonyms": [
+        "pipe",
+        "electrical_conduit"
+      ],
+      "abbreviations": [
+        "EMT",
+        "COND"
+      ],
+      "related_terms": [
+        "connectors",
+        "fittings",
+        "wire"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "lumber": {
+      "description": "Dimensional lumber for framing",
+      "synonyms": [
+        "framing_lumber",
+        "wood"
+      ],
+      "abbreviations": [
+        "WD",
+        "LBR"
+      ],
+      "related_terms": [
+        "nails",
+        "brackets",
+        "screws"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "concrete_masonry_unit": {
+      "description": "Concrete block for masonry construction",
+      "synonyms": [
+        "block",
+        "concrete_block",
+        "cinder_block"
+      ],
+      "abbreviations": [
+        "BLK",
+        "CMU"
+      ],
+      "related_terms": [
+        "reinforcement",
+        "grout",
+        "mortar"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "rebar": {
+      "description": "Reinforcing steel bar",
+      "synonyms": [
+        "reinforcement",
+        "reinforcing_steel"
+      ],
+      "abbreviations": [
+        "REINF",
+        "RB"
+      ],
+      "related_terms": [
+        "chairs",
+        "ties",
+        "concrete"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "roofing_shingle": {
+      "description": "Asphalt roofing shingles",
+      "synonyms": [
+        "roof_shingles",
+        "shingles"
+      ],
+      "abbreviations": [
+        "SHGL",
+        "RS"
+      ],
+      "related_terms": [
+        "nails",
+        "ridge_cap",
+        "underlayment"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    }
+  },
+  "unit": {
+    "cubic_feet": {
+      "description": "Volume measurement in cubic feet",
+      "synonyms": [
+        "cubic_foot"
+      ],
+      "abbreviations": [
+        "CF",
+        "FT3",
+        "CU FT"
+      ],
+      "related_terms": [],
+      "unit_conversions": {
+        "cubic_inches": 1728.0,
+        "cubic_yards": 0.037,
+        "cubic_meters": 0.0283
+      },
+      "properties": {}
+    },
+    "tons": {
+      "description": "Weight measurement in tons",
+      "synonyms": [
+        "ton"
+      ],
+      "abbreviations": [
+        "TON",
+        "T"
+      ],
+      "related_terms": [],
+      "unit_conversions": {
+        "pounds": 2000.0,
+        "kilograms": 907.185
+      },
+      "properties": {}
+    },
+    "pounds": {
+      "description": "Weight measurement in pounds",
+      "synonyms": [
+        "pound"
+      ],
+      "abbreviations": [
+        "LBS",
+        "LB",
+        "#"
+      ],
+      "related_terms": [],
+      "unit_conversions": {
+        "tons": 0.0005,
+        "kilograms": 0.453592
+      },
+      "properties": {}
+    },
+    "hours": {
+      "description": "Time measurement in hours",
+      "synonyms": [
+        "hour",
+        "labor_hours"
+      ],
+      "abbreviations": [
+        "HR",
+        "HRS",
+        "LH"
+      ],
+      "related_terms": [],
+      "unit_conversions": {
+        "days": 0.125,
+        "minutes": 60.0
+      },
+      "properties": {}
+    },
+    "cubic_yards": {
+      "description": "Volume measurement in cubic yards",
+      "synonyms": [
+        "cubic_yard"
+      ],
+      "abbreviations": [
+        "CY",
+        "CU YD",
+        "YD3"
+      ],
+      "related_terms": [],
+      "unit_conversions": {
+        "cubic_feet": 27.0,
+        "cubic_meters": 0.765
+      },
+      "properties": {}
+    },
+    "gallons": {
+      "description": "Volume measurement in gallons",
+      "synonyms": [
+        "gallon"
+      ],
+      "abbreviations": [
+        "G",
+        "GAL"
+      ],
+      "related_terms": [],
+      "unit_conversions": {
+        "liters": 3.78541,
+        "cubic_feet": 0.133681
+      },
+      "properties": {}
+    },
+    "each": {
+      "description": "Individual count unit",
+      "synonyms": [
+        "piece",
+        "unit",
+        "item"
+      ],
+      "abbreviations": [
+        "PCS",
+        "PC",
+        "EA"
+      ],
+      "related_terms": [],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "square_feet": {
+      "description": "Area measurement in square feet",
+      "synonyms": [
+        "square_foot"
+      ],
+      "abbreviations": [
+        "SF",
+        "SQ FT",
+        "FT2"
+      ],
+      "related_terms": [],
+      "unit_conversions": {
+        "square_inches": 144.0,
+        "square_yards": 0.111,
+        "square_meters": 0.0929
+      },
+      "properties": {}
+    },
+    "linear_feet": {
+      "description": "Linear measurement in feet",
+      "synonyms": [
+        "linear_foot",
+        "running_foot",
+        "running_feet"
+      ],
+      "abbreviations": [
+        "RF",
+        "LF",
+        "LIN FT"
+      ],
+      "related_terms": [],
+      "unit_conversions": {
+        "inches": 12.0,
+        "yards": 0.333,
+        "meters": 0.3048
+      },
+      "properties": {}
+    },
+    "man_hours": {
+      "description": "Labor time measurement",
+      "synonyms": [
+        "person_hours",
+        "labor_hours"
+      ],
+      "abbreviations": [
+        "LH",
+        "MH"
+      ],
+      "related_terms": [],
+      "unit_conversions": {
+        "hours": 1.0
+      },
+      "properties": {}
+    }
+  },
+  "crew_type": {
+    "drywall_crew": {
+      "description": "Crew specializing in drywall installation",
+      "synonyms": [
+        "drywall_team",
+        "taping_crew"
+      ],
+      "abbreviations": [
+        "DW_CREW",
+        "DC"
+      ],
+      "related_terms": [
+        "tape",
+        "compound",
+        "gypsum_board"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "excavation_crew": {
+      "description": "Crew specializing in excavation and earthwork",
+      "synonyms": [
+        "earthwork_crew",
+        "excavation_team"
+      ],
+      "abbreviations": [
+        "EXCV_CREW",
+        "XC"
+      ],
+      "related_terms": [
+        "compaction",
+        "grading",
+        "excavator"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "masonry_crew": {
+      "description": "Crew specializing in masonry work",
+      "synonyms": [
+        "masons",
+        "masonry_team"
+      ],
+      "abbreviations": [
+        "MAS_CREW",
+        "MC"
+      ],
+      "related_terms": [
+        "block",
+        "brick",
+        "mortar"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "general_laborers": {
+      "description": "General construction laborers",
+      "synonyms": [
+        "helpers",
+        "construction_workers",
+        "laborers"
+      ],
+      "abbreviations": [
+        "LAB",
+        "GL"
+      ],
+      "related_terms": [
+        "site_prep",
+        "cleanup",
+        "material_handling"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "plumbing_crew": {
+      "description": "Licensed plumbers",
+      "synonyms": [
+        "plumbers",
+        "plumbing_team"
+      ],
+      "abbreviations": [
+        "PLMB_CREW",
+        "PC"
+      ],
+      "related_terms": [
+        "pipe",
+        "fixtures",
+        "fittings"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "electrical_crew": {
+      "description": "Licensed electricians",
+      "synonyms": [
+        "electricians",
+        "electrical_team"
+      ],
+      "abbreviations": [
+        "ELEC_CREW",
+        "EC"
+      ],
+      "related_terms": [
+        "conduit",
+        "panels",
+        "wire"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "framing_crew": {
+      "description": "Crew specializing in structural framing",
+      "synonyms": [
+        "framing_team",
+        "carpentry_crew"
+      ],
+      "abbreviations": [
+        "FRAM_CREW",
+        "FC"
+      ],
+      "related_terms": [
+        "fasteners",
+        "lumber",
+        "tools"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "roofing_crew": {
+      "description": "Crew specializing in roofing work",
+      "synonyms": [
+        "roofers",
+        "roofing_team"
+      ],
+      "abbreviations": [
+        "RC",
+        "ROOF_CREW"
+      ],
+      "related_terms": [
+        "flashing",
+        "underlayment",
+        "shingles"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "finish_crew": {
+      "description": "Crew specializing in finish work",
+      "synonyms": [
+        "finish_team",
+        "trim_crew"
+      ],
+      "abbreviations": [
+        "FN",
+        "FINISH_CREW"
+      ],
+      "related_terms": [
+        "flooring",
+        "trim",
+        "paint"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "concrete_crew": {
+      "description": "Crew specializing in concrete work",
+      "synonyms": [
+        "cement_crew",
+        "concrete_team"
+      ],
+      "abbreviations": [
+        "CC",
+        "CONC_CREW"
+      ],
+      "related_terms": [
+        "formwork",
+        "concrete",
+        "finishing"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    }
+  },
+  "equipment": {
+    "forklift": {
+      "description": "Material handling lift truck",
+      "synonyms": [
+        "fork_truck",
+        "lift_truck"
+      ],
+      "abbreviations": [
+        "FL",
+        "LIFT"
+      ],
+      "related_terms": [
+        "mast",
+        "material_handling",
+        "forks"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "dump_truck": {
+      "description": "Truck with hydraulic dump bed",
+      "synonyms": [
+        "dumper",
+        "tipper_truck"
+      ],
+      "abbreviations": [
+        "DUMP",
+        "DT"
+      ],
+      "related_terms": [
+        "hauling",
+        "bed",
+        "hydraulics"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "skid_steer": {
+      "description": "Compact wheeled loader",
+      "synonyms": [
+        "bobcat",
+        "skid_loader"
+      ],
+      "abbreviations": [
+        "SS",
+        "SKID"
+      ],
+      "related_terms": [
+        "compact",
+        "attachment",
+        "bucket"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "scaffold": {
+      "description": "Temporary work platform structure",
+      "synonyms": [
+        "work_platform",
+        "scaffolding"
+      ],
+      "abbreviations": [
+        "SCAF",
+        "PLAT"
+      ],
+      "related_terms": [
+        "planks",
+        "frames",
+        "safety"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "compactor": {
+      "description": "Soil and asphalt compacting equipment",
+      "synonyms": [
+        "vibrating_compactor",
+        "roller"
+      ],
+      "abbreviations": [
+        "ROLL",
+        "COMP"
+      ],
+      "related_terms": [
+        "vibration",
+        "drum",
+        "compaction"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "bulldozer": {
+      "description": "Tracked earthmoving machine with blade",
+      "synonyms": [
+        "track_dozer",
+        "dozer"
+      ],
+      "abbreviations": [
+        "DOZ",
+        "BULL"
+      ],
+      "related_terms": [
+        "ripper",
+        "tracks",
+        "blade"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "generator": {
+      "description": "Portable electrical power generator",
+      "synonyms": [
+        "genset",
+        "portable_generator"
+      ],
+      "abbreviations": [
+        "GENR",
+        "GEN"
+      ],
+      "related_terms": [
+        "power",
+        "fuel",
+        "electrical"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "excavator": {
+      "description": "Tracked excavating machine",
+      "synonyms": [
+        "track_hoe",
+        "digger"
+      ],
+      "abbreviations": [
+        "EXCV",
+        "EXC"
+      ],
+      "related_terms": [
+        "hydraulics",
+        "bucket",
+        "tracks"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "concrete_mixer": {
+      "description": "Truck-mounted concrete mixing drum",
+      "synonyms": [
+        "cement_truck",
+        "ready_mix_truck"
+      ],
+      "abbreviations": [
+        "MX",
+        "RMT"
+      ],
+      "related_terms": [
+        "concrete",
+        "drum",
+        "chute"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    },
+    "crane": {
+      "description": "Mobile lifting equipment",
+      "synonyms": [
+        "mobile_crane",
+        "lifting_crane"
+      ],
+      "abbreviations": [
+        "CRN",
+        "CR"
+      ],
+      "related_terms": [
+        "hook",
+        "boom",
+        "outriggers"
+      ],
+      "unit_conversions": {},
+      "properties": {}
+    }
+  }
+}
